@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PictureViever", "PictureViever.csproj", "{427F0A09-4CA1-4274-AEC4-02DDD2EC8268}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{427F0A09-4CA1-4274-AEC4-02DDD2EC8268}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{427F0A09-4CA1-4274-AEC4-02DDD2EC8268}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{427F0A09-4CA1-4274-AEC4-02DDD2EC8268}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{427F0A09-4CA1-4274-AEC4-02DDD2EC8268}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1ED5A848-C46A-4E5D-8C87-C2422D5EDF66}
+	EndGlobalSection
+EndGlobal
