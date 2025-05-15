@@ -1,0 +1,36 @@
+﻿<Window x:Class="Lekcja_BazyDanych.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lekcja_BazyDanych"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="500" Width="800">
+    <Grid Margin="10">
+        <!-- Formularz do wstawniania danych -->
+        <StackPanel>
+            <Label Content="Imie" />
+            <TextBox x:Name="ImieTextBox" Width="150"/>
+
+            <Label Content="Nazwisko" />
+            <TextBox x:Name="NazwiskoTextBox" Width="150"/>
+
+            <Label Content="Płeć"/>
+            <ComboBox x:Name="PlecComboBox" Width="150">
+                <ComboBoxItem Content="Mężczyzna" />
+                <ComboBoxItem Content="Kobieta" />
+            </ComboBox>
+
+            <Label Content="Data urodzenia" />
+            <DatePicker x:Name="DataUrDatePicker" Width="150"/>
+
+            <Button Content="Dodaj Ucznia" Click="Button_Click" Width="100" Margin="10, 10, 0, 0" />
+            <Button x:Name="btnUsunUcznia" Content="Usuń Ucznia" Click="btnUsunUcznia_Click"  Width="100" Margin="10, 10, 0, 0"/>
+        </StackPanel>
+        
+        <!-- DataGrid do wyświetlania rekordów -->
+        <DataGrid x:Name="UczniowieDataGrid" AutoGenerateColumns="True" Margin="0, 250, 0, 0" Height="200"/>
+
+        
+    </Grid>
+</Window>

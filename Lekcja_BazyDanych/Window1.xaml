@@ -1,0 +1,17 @@
+﻿<Window x:Class="Lekcja_BazyDanych.Window1"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lekcja_BazyDanych"
+        mc:Ignorable="d"
+        Title="Usuń Ucznia" Height="200" Width="400">
+    <Grid>
+        <StackPanel>
+            <Label Content="Wpisz numer ucznia:" />
+            <TextBox x:Name="NumerTextBox" Width="100"/>
+            <Button x:Name="btnUsunUcznia" Width="150" Height="50" Content="Usuń ucznia" Margin="0, 10 ,0 ,0" Click="btnUsunUcznia_Click"/>
+        </StackPanel>
+        
+    </Grid>
+</Window>
