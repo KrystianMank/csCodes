@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WczytanieZdjec", "WczytanieZdjec.csproj", "{57EA3944-3239-47C7-8D40-60BBDD51017D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{57EA3944-3239-47C7-8D40-60BBDD51017D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{57EA3944-3239-47C7-8D40-60BBDD51017D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{57EA3944-3239-47C7-8D40-60BBDD51017D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{57EA3944-3239-47C7-8D40-60BBDD51017D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {032A83A7-9FDE-4063-BA19-6242CB65AD5D}
+	EndGlobalSection
+EndGlobal
