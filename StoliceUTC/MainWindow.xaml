@@ -1,0 +1,28 @@
+﻿<Window x:Class="StoliceUTC.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Stolice UTC" Height="400" Width="600">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <!-- ComboBox and Button -->
+        <StackPanel Orientation="Horizontal" Margin="10">
+            <ComboBox x:Name="ComboBoxStolice" Width="200" Margin="0,0,10,0"
+                      DisplayMemberPath="Name" SelectedValuePath="TimeZone"/>
+            <Button x:Name="ButtonDodaj" Content="Dodaj" Width="100" Click="ButtonDodaj_Click"/>
+        </StackPanel>
+
+        <!-- ListView to display cities and their times -->
+        <ListView x:Name="ListViewStolice" Grid.Row="1" Margin="10" ItemsSource="{Binding SelectedStolice}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Stolica" DisplayMemberBinding="{Binding Name}" Width="200"/>
+                    <GridViewColumn Header="Czas" DisplayMemberBinding="{Binding CurrentTime}" Width="200"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>
