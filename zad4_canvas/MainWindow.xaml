@@ -1,0 +1,16 @@
+﻿<Window x:Class="zad4_canvas.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:zad4_canvas"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800">
+    <Grid>
+        <Label Content="Wybierz kształt:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <ComboBox Name="comboBoxFigury" HorizontalAlignment="Left" Margin="108,14,0,0" VerticalAlignment="Top" Width="120"
+                  ItemsSource="{Binding figures}" DisplayMemberPath="Name" SelectionChanged="comboBoxFigury_SelectionChanged"/>
+        <Canvas Name="myCanvas" Margin="0,41,0,0" MouseDown="myCanvas_MouseDown" Background="White"/>
+
+    </Grid>
+</Window>
