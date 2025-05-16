@@ -5,8 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FinanceManager"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
-    <Grid>
+        Title="Manadżer finansów" Height="450" Width="800">
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
         
+
+        <TabControl x:Name="Tabs" Height="auto" Grid.Row="0" SelectionChanged="Tabs_SelectionChanged">
+            <TabItem Header="Strona główna" x:Name="MainPageTab">
+                <ContentControl x:Name="MainPageContent"/>
+            </TabItem>
+            <TabItem Header="Wizualizacja danych">
+                <ContentControl x:Name="DataVisualisationContent"/>
+            </TabItem>
+            <TabItem Header="Eksport/Import danych">
+                <ContentControl x:Name="SharingDataContent"/>
+            </TabItem>
+        </TabControl>
+
+     
     </Grid>
 </Window>
