@@ -5,8 +5,28 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FinanceManager"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             Background="White">
     <Grid>
-        <TextBlock Text="Main page" Width="100px" Height="100px" Background="Aqua"/>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="50"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="50"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Column="0" Grid.Row="0">
+            <Button Content="&lt;&lt;" FontSize="25" Height="100" VerticalAlignment="Center" x:Name="previousButton" Click="previousButton_Click"/>
+        </Grid>
+
+        <Grid Grid.Column="1" Grid.Row="0">
+            <ContentControl x:Name="PanelMainPage"/>
+        </Grid>
+
+        <Grid Grid.Row="0" Grid.Column="2">
+            <Button Content="&gt;&gt;" FontSize="25" Height="100" VerticalAlignment="Center" x:Name="nextButton" Click="nextButton_Click"/>
+        </Grid>
     </Grid>
 </UserControl>

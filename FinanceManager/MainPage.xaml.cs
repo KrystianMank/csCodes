@@ -20,9 +20,35 @@ namespace FinanceManager
     /// </summary>
     public partial class MainPage : UserControl
     {
+        public TranactionPanel tranactionPanel;
+        public TransactionHistory transactionHistoryPanel;
+        public List<UserControl> panels;
+        private int panelsIndex = 0;
+
         public MainPage()
         {
             InitializeComponent();
+            tranactionPanel = new TranactionPanel();
+            transactionHistoryPanel = new TransactionHistory();
+            panels = new List<UserControl>
+            {
+                tranactionPanel, transactionHistoryPanel
+            };
+            PanelMainPage.Content = panels[0];
+        }
+
+        private void previousButton_Click(object sender, RoutedEventArgs e)
+        {
+            panelsIndex--;
+            if (panelsIndex < 0) panelsIndex = panels.Count - 1;
+            PanelMainPage.Content = panels[panelsIndex];
+        }
+
+        private void nextButton_Click(object sender, RoutedEventArgs e)
+        {
+            panelsIndex++;
+            if (panelsIndex >= panels.Count) panelsIndex = 0;
+            PanelMainPage.Content = panels[panelsIndex];
         }
     }
 }

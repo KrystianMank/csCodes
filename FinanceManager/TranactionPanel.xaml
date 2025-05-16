@@ -1,0 +1,65 @@
+﻿<UserControl x:Class="FinanceManager.TranactionPanel"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:FinanceManager"
+             mc:Ignorable="d" 
+             d:DesignHeight="500" d:DesignWidth="800" Background="White">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="0.7*"/>
+            <RowDefinition Height="0.2*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Row="0" Text="Dodaj przychód lub wydatek" HorizontalAlignment="Center" FontSize="25" Height="auto" Width="auto"/>
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="75"/>
+                <RowDefinition Height="100"/>
+                <RowDefinition Height="75"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.5*"/>
+                <ColumnDefinition Width="0.5*"/>
+            </Grid.ColumnDefinitions>
+            
+            <GroupBox Header="Typ transakcji: " Grid.Row="0" Grid.Column="0">
+                <ComboBox VerticalAlignment="Top" Margin="10" HorizontalAlignment="Left" Width="auto" SelectedIndex="0">
+                    <ComboBoxItem Content="Przychód"/>
+                    <ComboBoxItem Content="Wydatek"/>
+                </ComboBox>
+            </GroupBox>
+            <GroupBox Header="Źródło: " Grid.Row="0" Grid.Column="1">
+                <ComboBox VerticalAlignment="Top" Margin="10" HorizontalAlignment="Left" Width="auto" SelectedIndex="0">
+                    <ComboBoxItem Content="Karta"/>
+                    <ComboBoxItem Content="Gotówka"/>
+                </ComboBox>
+            </GroupBox>
+
+            <GroupBox Header="Data"  Grid.Row="1" Grid.Column="0">
+                <Grid Margin="10">
+                    <CheckBox Content="Dzisiejsza data" />
+                    <DatePicker Margin="0, 25 ,0 0"/>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="Opis"  Grid.Row="1" Grid.Column="1">
+                <Grid Margin="10">
+                    <TextBox/>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="Kwota"  Grid.Row="2" Grid.Column="0">
+                <Grid Margin="10">
+                    <TextBox/>
+                </Grid>
+            </GroupBox>
+        </Grid>
+        <StackPanel Grid.Row="2" HorizontalAlignment="Center" >
+            <Button Content="Dodaj" Margin="10" FontSize="25" Padding="10"/>
+            <Button Content="Reset formularza"/>
+        </StackPanel>
+    </Grid>
+</UserControl>

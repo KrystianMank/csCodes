@@ -14,7 +14,7 @@
         
 
         <TabControl x:Name="Tabs" Height="auto" Grid.Row="0" SelectionChanged="Tabs_SelectionChanged">
-            <TabItem Header="Strona główna" x:Name="MainPageTab">
+            <TabItem Header="Strona główna" x:Name="MainPageTab" Grid.Row="1">
                 <ContentControl x:Name="MainPageContent"/>
             </TabItem>
             <TabItem Header="Wizualizacja danych">

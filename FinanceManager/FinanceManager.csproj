@@ -58,6 +58,12 @@
     <Compile Include="SharingData.xaml.cs">
       <DependentUpon>SharingData.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TranactionPanel.xaml.cs">
+      <DependentUpon>TranactionPanel.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TransactionHistory.xaml.cs">
+      <DependentUpon>TransactionHistory.xaml</DependentUpon>
+    </Compile>
     <Page Include="DataVisualisation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -85,6 +91,14 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="SharingData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TranactionPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TransactionHistory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
