@@ -24,11 +24,11 @@ namespace FinanceManager
         public TranactionPanel()
         {
             InitializeComponent();
+            tranasctionTypeComboBox.SelectionChanged += tranasctionTypeComboBox_SelectionChanged;
         }
 
         private void tranasctionTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-
         }
 
         private void transactionSourceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
