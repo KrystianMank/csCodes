@@ -21,8 +21,15 @@ namespace FinanceManager.Converters
         }
     }
 
-    public class IsTodayConverter
+    public class IsTodayConverter : IValueConverter
     {
-        
+        public object Convert(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return ((DateTime)value).Date == DateTime.Today;
+        }
+        public object ConvertBack(object value, Type targetType, object parameter, CultureInfo culture)
+        {
+            return (bool)value ? DateTime.Now : (object)null;
+        }
     }
 }
