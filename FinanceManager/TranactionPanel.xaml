@@ -26,13 +26,15 @@
             </Grid.ColumnDefinitions>
             
             <GroupBox Header="Typ transakcji: " Grid.Row="0" Grid.Column="0">
-                <ComboBox VerticalAlignment="Top" Margin="10" HorizontalAlignment="Left" Width="auto" SelectedIndex="0">
+                <ComboBox x:Name="tranasctionTypeComboBox" VerticalAlignment="Top" Margin="10" HorizontalAlignment="Left" Width="auto" SelectedIndex="0"
+                          SelectionChanged="tranasctionTypeComboBox_SelectionChanged">
                     <ComboBoxItem Content="Przychód"/>
                     <ComboBoxItem Content="Wydatek"/>
                 </ComboBox>
             </GroupBox>
             <GroupBox Header="Źródło: " Grid.Row="0" Grid.Column="1">
-                <ComboBox VerticalAlignment="Top" Margin="10" HorizontalAlignment="Left" Width="auto" SelectedIndex="0">
+                <ComboBox VerticalAlignment="Top" Margin="10" HorizontalAlignment="Left" Width="auto" SelectedIndex="0"
+                          x:Name="transactionSourceComboBox" SelectionChanged="transactionSourceComboBox_SelectionChanged">
                     <ComboBoxItem Content="Karta"/>
                     <ComboBoxItem Content="Gotówka"/>
                 </ComboBox>
@@ -40,26 +42,32 @@
 
             <GroupBox Header="Data"  Grid.Row="1" Grid.Column="0">
                 <Grid Margin="10">
-                    <CheckBox Content="Dzisiejsza data" />
-                    <DatePicker Margin="0, 25 ,0 0"/>
+                    <CheckBox Content="Dzisiejsza data" x:Name="todaysDateCheckBox" />
+                    <DatePicker Margin="0, 25 ,0 0" x:Name="dateDatePicker"/>
                 </Grid>
             </GroupBox>
 
-            <GroupBox Header="Opis"  Grid.Row="1" Grid.Column="1">
+            <GroupBox Header="Opis" Grid.Row="1" Grid.Column="1">
                 <Grid Margin="10">
-                    <TextBox/>
+                    <TextBox x:Name="descriptionTextBox"/>
                 </Grid>
             </GroupBox>
 
             <GroupBox Header="Kwota"  Grid.Row="2" Grid.Column="0">
                 <Grid Margin="10">
-                    <TextBox/>
+                    <TextBox x:Name="amountTextBox"/>
+                </Grid>
+            </GroupBox>
+
+            <GroupBox Header="Tytuł"  Grid.Row="2" Grid.Column="1">
+                <Grid Margin="10">
+                    <TextBox x:Name="titleTextBox"/>
                 </Grid>
             </GroupBox>
         </Grid>
         <StackPanel Grid.Row="2" HorizontalAlignment="Center" >
-            <Button Content="Dodaj" Margin="10" FontSize="25" Padding="10"/>
-            <Button Content="Reset formularza"/>
+            <Button Content="Dodaj" Margin="10" FontSize="25" Padding="10" x:Name="addTranasctionButton" Click="addTranasctionButton_Click"/>
+            <Button Content="Reset formularza" x:Name="formResetButton" Click="formResetButton_Click"/>
         </StackPanel>
     </Grid>
 </UserControl>

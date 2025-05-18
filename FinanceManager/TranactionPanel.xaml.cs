@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TransactionModel;
 
 namespace FinanceManager
 {
@@ -20,10 +21,35 @@ namespace FinanceManager
     /// </summary>
     public partial class TranactionPanel : UserControl
     {
-        
         public TranactionPanel()
         {
             InitializeComponent();
+        }
+
+        private void tranasctionTypeComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void transactionSourceComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+
+        }
+
+        private void addTranasctionButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void formResetButton_Click(object sender, RoutedEventArgs e)
+        {
+            titleTextBox.Text = string.Empty;
+            amountTextBox.Text = string.Empty;
+            dateDatePicker.Text = string.Empty;
+            descriptionTextBox.Text = string.Empty;
+            todaysDateCheckBox.IsChecked = false;
+            tranasctionTypeComboBox.SelectedIndex = 0;
+            transactionSourceComboBox.SelectedIndex = 0;
         }
     }
 }

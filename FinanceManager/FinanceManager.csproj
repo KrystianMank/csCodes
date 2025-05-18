@@ -64,6 +64,7 @@
     <Compile Include="TransactionHistory.xaml.cs">
       <DependentUpon>TransactionHistory.xaml</DependentUpon>
     </Compile>
+    <Compile Include="TransactionModel.cs" />
     <Page Include="DataVisualisation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
