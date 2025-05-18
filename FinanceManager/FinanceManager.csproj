@@ -55,21 +55,24 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="SharingData.xaml.cs">
+    <Compile Include="Converters\BoolToIndexConverter.cs" />
+    <Compile Include="Converters\IsTodayConverter.cs" />
+    <Compile Include="Models\Transaction.cs" />
+    <Compile Include="Views\SharingData.xaml.cs">
       <DependentUpon>SharingData.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TranactionPanel.xaml.cs">
+    <Compile Include="Views\TranactionPanel.xaml.cs">
       <DependentUpon>TranactionPanel.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TransactionHistory.xaml.cs">
+    <Compile Include="Views\TransactionHistory.xaml.cs">
       <DependentUpon>TransactionHistory.xaml</DependentUpon>
     </Compile>
-    <Compile Include="TransactionModel.cs" />
-    <Page Include="DataVisualisation.xaml">
+    <Compile Include="ViewModels\TransactionModel.cs" />
+    <Page Include="Views\DataVisualisation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainPage.xaml">
+    <Page Include="Views\MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -81,25 +84,25 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DataVisualisation.xaml.cs">
+    <Compile Include="Views\DataVisualisation.xaml.cs">
       <DependentUpon>DataVisualisation.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPage.xaml.cs">
+    <Compile Include="Views\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="SharingData.xaml">
+    <Page Include="Views\SharingData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TranactionPanel.xaml">
+    <Page Include="Views\TranactionPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="TransactionHistory.xaml">
+    <Page Include="Views\TransactionHistory.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
