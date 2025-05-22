@@ -39,16 +39,15 @@
             
             <GroupBox Header="Typ transakcji: " Grid.Row="0" Grid.Column="0">
                 <ComboBox x:Name="tranasctionTypeComboBox" VerticalAlignment="Top" Margin="10" HorizontalAlignment="Left" Width="auto"
-                          SelectionChanged="tranasctionTypeComboBox_SelectionChanged"
                           SelectedIndex="{Binding IsIncome, Converter={StaticResource BoolToIndexConverter}, Mode=TwoWay}">
                     <ComboBoxItem Content="Przychód"/>
                     <ComboBoxItem Content="Wydatek"/>
                 </ComboBox>
             </GroupBox>
             <GroupBox Header="Źródło: " Grid.Row="0" Grid.Column="1">
-                <ComboBox VerticalAlignment="Top" Margin="10" HorizontalAlignment="Left" Width="auto" SelectedIndex="{Binding Source}"
-                          x:Name="transactionSourceComboBox" SelectionChanged="transactionSourceComboBox_SelectionChanged">
-                    <ComboBoxItem Content="Karta"/>
+                <ComboBox VerticalAlignment="Top" Margin="10" HorizontalAlignment="Left" Width="auto" SelectedItem="{Binding Source, Mode=TwoWay}"
+                          x:Name="transactionSourceComboBox">
+                    <ComboBoxItem Content="Karta" IsSelected="True"/>
                     <ComboBoxItem Content="Gotówka"/>
                 </ComboBox>
             </GroupBox>
@@ -81,9 +80,9 @@
         </Grid>
         <StackPanel Grid.Row="2" HorizontalAlignment="Center" >
             <Button Content="Dodaj" Margin="10" FontSize="25" Padding="10" x:Name="addTranasctionButton" 
-                    Click="addTranasctionButton_Click" Command="{Binding AddTransactionCommand}"/>
+                    Command="{Binding AddTransactionCommand}"/>
             <Button Content="Reset formularza" x:Name="formResetButton"
-                    Click="formResetButton_Click" Command="{Binding ResetFormCommand}"/>
+                    Command="{Binding ResetFormCommand}"/>
         </StackPanel>
     </Grid>
 </UserControl>

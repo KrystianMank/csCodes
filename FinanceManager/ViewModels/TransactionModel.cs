@@ -7,6 +7,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using FinanceManager.Models;
 
@@ -15,6 +16,7 @@ namespace TransactionModel
     // ViewModel transakcji
     public class TransactionViewModel : INotifyPropertyChanged
     {
+
         // Aktualna transakcja
         private Transaction _currentTransaction = new Transaction();
         
@@ -29,6 +31,7 @@ namespace TransactionModel
             {
                 _currentTransaction.Title = value;
                 OnPropertyChanged();
+                
             }
         }
         public string Description
@@ -119,6 +122,7 @@ namespace TransactionModel
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            
         }
 
     }
