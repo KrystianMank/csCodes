@@ -10,13 +10,14 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using FinanceManager.Models;
+using FinanceManager.Services;
 
 namespace TransactionModel
 {
     // ViewModel transakcji
     public class TransactionViewModel : INotifyPropertyChanged
     {
-
+        private readonly TransactionRepository _repository = new TransactionRepository();
         // Aktualna transakcja
         private Transaction _currentTransaction = new Transaction();
         
