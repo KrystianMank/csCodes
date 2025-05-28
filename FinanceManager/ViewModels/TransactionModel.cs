@@ -8,6 +8,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
 using FinanceManager.Models;
 using FinanceManager.Services;
@@ -17,7 +18,15 @@ namespace TransactionModel
     // ViewModel transakcji
     public class TransactionViewModel : INotifyPropertyChanged
     {
+        // Lista źródeł transakcji
+        public ObservableCollection<string> SourceItems { get; } = new ObservableCollection<string>();
+
+        // Lista typów transakcji
+        public ObservableCollection<string> TransactionTypeItems { get; } = new ObservableCollection<string>();
+
+        // Repozytorium transakcji
         private readonly TransactionRepository _repository = new TransactionRepository();
+
         // Aktualna transakcja
         private Transaction _currentTransaction = new Transaction();
         
@@ -25,6 +34,7 @@ namespace TransactionModel
         public ObservableCollection<Transaction> Transactions { get; } = new ObservableCollection<Transaction>();
 
         // Inicjacja właściwości 
+
         public string Title
         {
             get => _currentTransaction.Title;
@@ -69,8 +79,11 @@ namespace TransactionModel
             get => _currentTransaction.Source;
             set
             {
-                _currentTransaction.Source = value;
-                OnPropertyChanged();
+                if (_currentTransaction.Source != value)
+                {
+                    _currentTransaction.Source = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -79,7 +92,32 @@ namespace TransactionModel
             get => _currentTransaction.IsIncome;
             set
             {
+
                 _currentTransaction.IsIncome = value;
+                OnPropertyChanged();
+            }
+        }
+
+        private string _selectedTransactionTypeItem;
+        public string SelectedTransactionTypeItem
+        {
+            get => _selectedTransactionTypeItem;
+            set
+            {
+                _selectedTransactionTypeItem = value;
+                IsIncome = value == "Przychód";
+                OnPropertyChanged();
+            }
+        }
+
+        private string _selectedSourceItem;
+        public string SelectedSourceItem
+        {
+            get => _selectedSourceItem;
+            set
+            {
+                _selectedSourceItem = value;
+                Source = value;
                 OnPropertyChanged();
             }
         }
@@ -90,16 +128,33 @@ namespace TransactionModel
 
         public TransactionViewModel()
         {
+            SourceItems.Add("Karta");
+            SourceItems.Add("Gotówka");
+
+            TransactionTypeItems.Add("Przychód");
+            TransactionTypeItems.Add("Wydatek" );
+
             AddTransactionCommand = new RelayCommand(AddTransaction);
             ResetFormCommand = new RelayCommand(ResetForm);
-            Date = DateTime.Now;
+            _currentTransaction = new Transaction
+            {
+                Date = DateTime.Now,
+                Source = "Karta",
+            };
+
+            SelectedSourceItem = SourceItems.FirstOrDefault();
+            SelectedTransactionTypeItem = TransactionTypeItems.FirstOrDefault();
         }
 
         // Dodanie transakcji
         private void AddTransaction(object parameter)
         {
             if (Amount <= 0) return;
+            if (string.IsNullOrWhiteSpace(Title)) return;
+            MessageBox.Show($"{_currentTransaction.Source}  {_currentTransaction.IsIncome}");
+
             Transactions.Add(_currentTransaction);
+            _repository.AddTransaction(_currentTransaction);
             ResetForm(null);
         }
 
@@ -108,8 +163,13 @@ namespace TransactionModel
         {
             _currentTransaction = new Transaction
             {
-                Date = DateTime.Now
+                Date = DateTime.Now,
+                Source = SourceItems.FirstOrDefault()
             };
+
+            SelectedSourceItem = SourceItems.FirstOrDefault();
+            SelectedTransactionTypeItem = TransactionTypeItems.FirstOrDefault();
+
             OnPropertyChanged(nameof(Title));
             OnPropertyChanged(nameof(Amount));
             OnPropertyChanged(nameof(Description));
@@ -123,7 +183,6 @@ namespace TransactionModel
         protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
-            
         }
 
     }

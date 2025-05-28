@@ -92,6 +92,7 @@
     <Compile Include="Converters\BoolToIndexConverter.cs" />
     <Compile Include="Converters\IsTodayConverter.cs" />
     <Compile Include="Models\Transaction.cs" />
+    <Compile Include="Services\TransactionRepository.cs" />
     <Compile Include="Views\SharingData.xaml.cs">
       <DependentUpon>SharingData.xaml</DependentUpon>
     </Compile>

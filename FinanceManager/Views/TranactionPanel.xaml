@@ -39,17 +39,14 @@
             
             <GroupBox Header="Typ transakcji: " Grid.Row="0" Grid.Column="0">
                 <ComboBox x:Name="tranasctionTypeComboBox" VerticalAlignment="Top" Margin="10" HorizontalAlignment="Left" Width="auto"
-                          SelectedIndex="{Binding IsIncome, Converter={StaticResource BoolToIndexConverter}, Mode=TwoWay}">
-                    <ComboBoxItem Content="Przychód"/>
-                    <ComboBoxItem Content="Wydatek"/>
-                </ComboBox>
+                           ItemsSource="{Binding TransactionTypeItems}" 
+                           SelectedItem="{Binding SelectedTransactionTypeItem, Mode=TwoWay}"/>
             </GroupBox>
             <GroupBox Header="Źródło: " Grid.Row="0" Grid.Column="1">
-                <ComboBox VerticalAlignment="Top" Margin="10" HorizontalAlignment="Left" Width="auto" SelectedItem="{Binding Source, Mode=TwoWay}"
-                          x:Name="transactionSourceComboBox">
-                    <ComboBoxItem Content="Karta" IsSelected="True"/>
-                    <ComboBoxItem Content="Gotówka"/>
-                </ComboBox>
+                <ComboBox VerticalAlignment="Top" Margin="10" HorizontalAlignment="Left" Width="auto"
+                          ItemsSource="{Binding SourceItems}" 
+                          SelectedItem="{Binding SelectedSourceItem, Mode=TwoWay}"
+                          />
             </GroupBox>
 
             <GroupBox Header="Data"  Grid.Row="1" Grid.Column="0">

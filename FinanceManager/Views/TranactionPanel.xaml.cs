@@ -26,5 +26,7 @@ namespace FinanceManager
         {
             InitializeComponent();
         }
+
+        
     }
 }
