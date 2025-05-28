@@ -14,8 +14,9 @@
     </UserControl.DataContext>
     
     <UserControl.Resources>
-        <converters:BoolToIndexConverter x:Key="BoolToIndexConverter"/>
+        <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
         <converters:IsTodayConverter x:Key="IsTodayConverter"/>
+        <converters:StringEqualsToBoolConverter x:Key="StringEqualsToBoolConverter"/>
     </UserControl.Resources>
 
     <Grid>
@@ -38,15 +39,20 @@
             </Grid.ColumnDefinitions>
             
             <GroupBox Header="Typ transakcji: " Grid.Row="0" Grid.Column="0">
-                <ComboBox x:Name="tranasctionTypeComboBox" VerticalAlignment="Top" Margin="10" HorizontalAlignment="Left" Width="auto"
-                           ItemsSource="{Binding TransactionTypeItems}" 
-                           SelectedItem="{Binding SelectedTransactionTypeItem, Mode=TwoWay}"/>
+                <StackPanel Margin="10" Orientation="Horizontal">
+                    <RadioButton Content="Przychód" GroupName="TransactionType" Margin="5"
+                                 IsChecked="{Binding IsIncome, Mode=TwoWay, ConverterParameter=Przychód}"/>
+                    <RadioButton Content="Wydatek" GroupName="TransactionType" Margin="5" 
+                                 IsChecked="{Binding IsIncome, Mode=TwoWay, Converter={StaticResource InverseBoolConverter}, ConverterParameter=Wydatek}"/>
+                </StackPanel>
             </GroupBox>
             <GroupBox Header="Źródło: " Grid.Row="0" Grid.Column="1">
-                <ComboBox VerticalAlignment="Top" Margin="10" HorizontalAlignment="Left" Width="auto"
-                          ItemsSource="{Binding SourceItems}" 
-                          SelectedItem="{Binding SelectedSourceItem, Mode=TwoWay}"
-                          />
+                <StackPanel Margin="10" Orientation="Horizontal">
+                    <RadioButton Content="Gotówka" GroupName="Source" Margin="5"
+                                 IsChecked="{Binding Source, Mode=TwoWay, Converter={StaticResource StringEqualsToBoolConverter}, ConverterParameter=Gotówka}"/>
+                    <RadioButton Content="Karta" GroupName="Source" Margin="5"
+                                 IsChecked="{Binding Source, Mode=TwoWay, Converter={StaticResource StringEqualsToBoolConverter}, ConverterParameter=Karta}"/>
+                </StackPanel>
             </GroupBox>
 
             <GroupBox Header="Data"  Grid.Row="1" Grid.Column="0">

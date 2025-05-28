@@ -48,7 +48,7 @@ namespace FinanceManager.Services
                     command.Parameters.AddWithValue("title", transaction.Title);
                     command.Parameters.AddWithValue("amount", transaction.Amount);
                     command.Parameters.AddWithValue("date", transaction.Date);
-                    command.Parameters.AddWithValue("description", transaction.Description);
+                    command.Parameters.AddWithValue("description", transaction.Description ?? "Brak opisu");
                     command.Parameters.AddWithValue("type", transaction.IsIncome);
                     command.Parameters.AddWithValue("source", transaction.Source);
                     command.ExecuteNonQuery();

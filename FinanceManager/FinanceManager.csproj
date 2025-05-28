@@ -89,8 +89,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Converters\BoolToIndexConverter.cs" />
+    <Compile Include="Converters\InverseBoolConverter.cs" />
     <Compile Include="Converters\IsTodayConverter.cs" />
+    <Compile Include="Converters\StringEqualsToBoolConverter.cs" />
     <Compile Include="Models\Transaction.cs" />
     <Compile Include="Services\TransactionRepository.cs" />
     <Compile Include="Views\SharingData.xaml.cs">

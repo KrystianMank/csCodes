@@ -18,12 +18,6 @@ namespace TransactionModel
     // ViewModel transakcji
     public class TransactionViewModel : INotifyPropertyChanged
     {
-        // Lista źródeł transakcji
-        public ObservableCollection<string> SourceItems { get; } = new ObservableCollection<string>();
-
-        // Lista typów transakcji
-        public ObservableCollection<string> TransactionTypeItems { get; } = new ObservableCollection<string>();
-
         // Repozytorium transakcji
         private readonly TransactionRepository _repository = new TransactionRepository();
 
@@ -98,42 +92,12 @@ namespace TransactionModel
             }
         }
 
-        private string _selectedTransactionTypeItem;
-        public string SelectedTransactionTypeItem
-        {
-            get => _selectedTransactionTypeItem;
-            set
-            {
-                _selectedTransactionTypeItem = value;
-                IsIncome = value == "Przychód";
-                OnPropertyChanged();
-            }
-        }
-
-        private string _selectedSourceItem;
-        public string SelectedSourceItem
-        {
-            get => _selectedSourceItem;
-            set
-            {
-                _selectedSourceItem = value;
-                Source = value;
-                OnPropertyChanged();
-            }
-        }
-
         // Utworzenie zdarzeń dodania transakcji i resetu formularza
         public ICommand AddTransactionCommand { get; }
         public ICommand ResetFormCommand { get; }
 
         public TransactionViewModel()
         {
-            SourceItems.Add("Karta");
-            SourceItems.Add("Gotówka");
-
-            TransactionTypeItems.Add("Przychód");
-            TransactionTypeItems.Add("Wydatek" );
-
             AddTransactionCommand = new RelayCommand(AddTransaction);
             ResetFormCommand = new RelayCommand(ResetForm);
             _currentTransaction = new Transaction
@@ -142,8 +106,6 @@ namespace TransactionModel
                 Source = "Karta",
             };
 
-            SelectedSourceItem = SourceItems.FirstOrDefault();
-            SelectedTransactionTypeItem = TransactionTypeItems.FirstOrDefault();
         }
 
         // Dodanie transakcji
@@ -164,11 +126,7 @@ namespace TransactionModel
             _currentTransaction = new Transaction
             {
                 Date = DateTime.Now,
-                Source = SourceItems.FirstOrDefault()
             };
-
-            SelectedSourceItem = SourceItems.FirstOrDefault();
-            SelectedTransactionTypeItem = TransactionTypeItems.FirstOrDefault();
 
             OnPropertyChanged(nameof(Title));
             OnPropertyChanged(nameof(Amount));
