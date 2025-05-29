@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using FinanceManager;
 using FinanceManager.Models;
 using FinanceManager.Services;
 
@@ -18,14 +19,29 @@ namespace TransactionModel
     // ViewModel transakcji
     public class TransactionViewModel : INotifyPropertyChanged
     {
+        // Singleton dla TransactionViewModel
+        public static TransactionViewModel Instance { get; } = new TransactionViewModel();
+
         // Repozytorium transakcji
         private readonly TransactionRepository _repository = new TransactionRepository();
 
         // Aktualna transakcja
         private Transaction _currentTransaction = new Transaction();
-        
+
         // Tablica transakcji
-        public ObservableCollection<Transaction> Transactions { get; } = new ObservableCollection<Transaction>();
+        private ObservableCollection<Transaction> _transactions = new ObservableCollection<Transaction>();  
+        public ObservableCollection<Transaction> Transactions
+        {
+            get => _transactions;
+            set
+            {
+                if (_transactions != value)
+                {
+                    _transactions = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
 
         // Inicjacja właściwości 
 
@@ -96,6 +112,7 @@ namespace TransactionModel
         public ICommand AddTransactionCommand { get; }
         public ICommand ResetFormCommand { get; }
 
+
         public TransactionViewModel()
         {
             AddTransactionCommand = new RelayCommand(AddTransaction);
@@ -103,8 +120,12 @@ namespace TransactionModel
             _currentTransaction = new Transaction
             {
                 Date = DateTime.Now,
-                Source = "Karta",
+                //Source = "Karta",
             };
+            foreach (var transaction in _repository.GetAll())
+            {
+                Transactions.Add(transaction);
+            }
 
         }
 
@@ -113,10 +134,21 @@ namespace TransactionModel
         {
             if (Amount <= 0) return;
             if (string.IsNullOrWhiteSpace(Title)) return;
-            MessageBox.Show($"{_currentTransaction.Source}  {_currentTransaction.IsIncome}");
 
-            Transactions.Add(_currentTransaction);
-            _repository.AddTransaction(_currentTransaction);
+            var newTransaction = new Transaction
+            {
+                Title = this.Title,
+                Amount = this.Amount,
+                Date = this.Date,
+                Description = this.Description,
+                IsIncome = this.IsIncome,
+                Source = this.Source
+            };
+
+            _repository.AddTransaction(newTransaction);
+            
+            Transactions.Add(newTransaction);
+
             ResetForm(null);
         }
 
@@ -134,6 +166,7 @@ namespace TransactionModel
             OnPropertyChanged(nameof(Date));
             OnPropertyChanged(nameof(IsIncome));
             OnPropertyChanged(nameof(Source));
+            OnPropertyChanged(nameof(Transactions));
         }
 
         // Implementacja metody klasy INotifyProperyChanged
