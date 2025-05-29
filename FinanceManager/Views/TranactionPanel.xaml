@@ -4,15 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FinanceManager"
-             xmlns:vm="clr-namespace:TransactionModel"
              xmlns:converters="clr-namespace:FinanceManager.Converters"
-             d:DataContext="{d:DesignInstance vm:TransactionViewModel}"
              mc:Ignorable="d" 
              d:DesignHeight="500" d:DesignWidth="800" Background="White">
-    <UserControl.DataContext>
-        <vm:TransactionViewModel/>
-    </UserControl.DataContext>
-    
+
     <UserControl.Resources>
         <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
         <converters:IsTodayConverter x:Key="IsTodayConverter"/>

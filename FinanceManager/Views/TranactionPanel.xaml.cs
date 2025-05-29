@@ -25,6 +25,7 @@ namespace FinanceManager
         public TranactionPanel()
         {
             InitializeComponent();
+            DataContext = TransactionViewModel.Instance; // Ustawienie DataContext na instancję TransactionViewModel
         }
 
         
