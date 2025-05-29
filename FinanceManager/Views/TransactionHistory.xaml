@@ -4,9 +4,52 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:FinanceManager"
+             xmlns:converters="clr-namespace:FinanceManager.Converters"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800" Background="White">
+    
+    
+    <UserControl.Resources>
+        <converters:InverseBoolConverter x:Key="InverseBoolConverter"/>
+        <converters:StringEqualsToBoolConverter x:Key="StringEqualsToBoolConverter"/>
+        <converters:StringToBoolConverter x:Key="StringToBoolConverter"/>
+
+        <Style TargetType="GridViewHeaderRowPresenter">
+            <Setter Property="HorizontalAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Resources>
+    
     <Grid>
-        <TextBlock Text="Historia transakcji" HorizontalAlignment="Center" FontSize="25" Height="auto" Width="auto"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Text="Historia transakcji" HorizontalAlignment="Center" FontSize="25" Height="auto" Width="auto"/>
+
+        <ListView Grid.Row="1" ItemsSource="{Binding Transactions}">
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+            </ListView.ItemContainerStyle>
+            <ListView.View>
+                
+                <GridView>
+                    <GridViewColumn Header="Tytuł" Width="120" DisplayMemberBinding="{Binding Title}"/>
+                    <GridViewColumn Header="Data" Width="150" DisplayMemberBinding="{Binding Date}"/>
+                    <GridViewColumn Header="Należność" Width="80" DisplayMemberBinding="{Binding Amount}"/>
+                    <GridViewColumn Header="Typ transakcji" Width="100">
+                        <GridViewColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding IsIncome, Converter={StaticResource StringToBoolConverter}}"/>
+                            </DataTemplate>
+                        </GridViewColumn.CellTemplate>
+                    </GridViewColumn>
+                    <GridViewColumn Header="Źródło" Width="120" DisplayMemberBinding="{Binding Source}"/>
+                    <GridViewColumn Header="Opis" Width="auto" DisplayMemberBinding="{Binding Description}"/>
+
+                </GridView>
+            </ListView.View>
+        </ListView>
     </Grid>
 </UserControl>

@@ -24,6 +24,7 @@ namespace FinanceManager
         public TransactionHistory()
         {
             InitializeComponent();
+            DataContext = TransactionViewModel.Instance; // Ustawienie DataContext na instancję TransactionViewModel
         }
 
         
