@@ -132,3 +132,9 @@ $RECYCLE.BIN/
 .DS_Store
 
 _NCrunch*
+
+wwwroot/
+
+*.db
+*.db-shm
+*.db-wal
