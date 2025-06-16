@@ -14,7 +14,7 @@ using FinanceManager;
 using FinanceManager.Models;
 using FinanceManager.Services;
 
-namespace TransactionModel
+namespace FinanceManager.ViewModels
 {
     // ViewModel transakcji
     public class TransactionViewModel : INotifyPropertyChanged
@@ -23,7 +23,7 @@ namespace TransactionModel
         public static TransactionViewModel Instance { get; } = new TransactionViewModel();
 
         // Repozytorium transakcji
-        private readonly TransactionRepository _repository = new TransactionRepository();
+        protected internal TransactionRepository _repository = new TransactionRepository();
 
         // Aktualna transakcja
         private Transaction _currentTransaction = new Transaction();
@@ -43,6 +43,20 @@ namespace TransactionModel
             }
         }
 
+        private Transaction _selectedTransaction;
+        public Transaction SelectedTransaction
+        {
+            get => _selectedTransaction;
+            set
+            {
+                if (_selectedTransaction != value)
+                {
+                    _selectedTransaction = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         // Inicjacja właściwości 
 
         public string Title
@@ -50,27 +64,37 @@ namespace TransactionModel
             get => _currentTransaction.Title;
             set
             {
-                _currentTransaction.Title = value;
-                OnPropertyChanged();
-                
+                if (_currentTransaction.Title != value)
+                {
+                    _currentTransaction.Title = value;
+                    OnPropertyChanged();
+                }
             }
         }
+
         public string Description
         {
             get => _currentTransaction.Description;
             set
             {
-                _currentTransaction.Description = value;
-                OnPropertyChanged();
+                if (_currentTransaction.Description != value)
+                {
+                    _currentTransaction.Description = value;
+                    OnPropertyChanged();
+                }
             }
         }
+
         public decimal Amount
         {
             get => _currentTransaction.Amount;
             set
             {
-                _currentTransaction.Amount = value;
-                OnPropertyChanged();
+                if (_currentTransaction.Amount != value)
+                {
+                    _currentTransaction.Amount = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -79,8 +103,11 @@ namespace TransactionModel
             get => _currentTransaction.Date;
             set
             {
-                _currentTransaction.Date = value;
-                OnPropertyChanged();
+                if (_currentTransaction.Date != value)
+                {
+                    _currentTransaction.Date = value;
+                    OnPropertyChanged();
+                }
             }
         }
 
@@ -102,9 +129,11 @@ namespace TransactionModel
             get => _currentTransaction.IsIncome;
             set
             {
-
-                _currentTransaction.IsIncome = value;
-                OnPropertyChanged();
+                if (_currentTransaction.IsIncome != value)
+                {
+                    _currentTransaction.IsIncome = value;
+                    OnPropertyChanged();
+                }
             }
         }
 

@@ -12,7 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using TransactionModel;
+using FinanceManager.ViewModels;
 
 namespace FinanceManager
 {
@@ -26,7 +26,5 @@ namespace FinanceManager
             InitializeComponent();
             DataContext = TransactionViewModel.Instance; // Ustawienie DataContext na instancję TransactionViewModel
         }
-
-        
     }
 }

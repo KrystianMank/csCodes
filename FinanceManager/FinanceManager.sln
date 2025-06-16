@@ -5,6 +5,8 @@ VisualStudioVersion = 17.10.35013.160
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FinanceManager", "FinanceManager.csproj", "{82C14F5A-B489-46EF-9F78-8F0243A8F31F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test_jednostkowy_1", "Test_jednostkowy_1\Test_jednostkowy_1.csproj", "{68998965-A292-443D-8273-9EAC851E8A82}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{82C14F5A-B489-46EF-9F78-8F0243A8F31F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82C14F5A-B489-46EF-9F78-8F0243A8F31F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82C14F5A-B489-46EF-9F78-8F0243A8F31F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68998965-A292-443D-8273-9EAC851E8A82}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68998965-A292-443D-8273-9EAC851E8A82}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68998965-A292-443D-8273-9EAC851E8A82}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68998965-A292-443D-8273-9EAC851E8A82}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -26,7 +26,8 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Text="Historia transakcji" HorizontalAlignment="Center" FontSize="25" Height="auto" Width="auto"/>
 
-        <ListView Grid.Row="1" ItemsSource="{Binding Transactions}">
+        <ListView Grid.Row="1" ItemsSource="{Binding Transactions}"
+                  SelectedItem="{Binding SelectedTransaction, Mode=TwoWay}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
                     <Setter Property="HorizontalContentAlignment" Value="Center"/>
