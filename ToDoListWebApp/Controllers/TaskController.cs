@@ -11,10 +11,41 @@ namespace ToDoListWebApp.Controllers
         {
             _context = context;
         }
-        public IActionResult AddEditTask()
+        public IActionResult AddEditTask(int? id)
         {
+            if (id != null)
+            {
+                var taskToEdit = _context.TaskItems.FirstOrDefault(t => t.Id == id);
+                if (taskToEdit != null)
+                {
+                    return View(taskToEdit);
+                }
+            }
             return View();
         }
+
+        public IActionResult DelteTask(int id)
+        {
+            var taskToDelte = _context.TaskItems.FirstOrDefault(t => t.Id == id);
+            if (taskToDelte != null)
+            {
+                _context.TaskItems.Remove(taskToDelte);
+                _context.SaveChanges();
+            }
+            return RedirectToAction("ToDoList");
+        }
+
+        public IActionResult ToDoList()
+        {
+            var allTasks = _context.TaskItems.ToList();
+            return View(allTasks);
+        }
+
+        public IActionResult BackToHome()
+        {
+            return RedirectToAction("Index", "Home");
+        }
+
         public IActionResult AddEditTaskSubmit(TaskItem taskItem)
         {
             if(taskItem.Id == 0)
@@ -28,5 +59,7 @@ namespace ToDoListWebApp.Controllers
             _context.SaveChanges();
             return RedirectToAction("Index", "Home");
         }
+
+
     }
 }
