@@ -1,0 +1,20 @@
+﻿@{
+	ViewData["Title"] = "Adding / Editing the Task";
+}
+@model ToDoListWebApp.Models.TaskItem;
+<div>
+	<h1 class="text-center">Add or edit task</h1>
+</div>
+<form asp-controller="Task" asp-action="AddEditTaskSubmit">
+	<input type="hidden" asp-for="Id" class="form-control" />
+	<input type="hidden" asp-for="Added" value="@DateTime.Now" class="form-control" />
+	<input type="hidden" asp-for="IsDone" value="@false" class="form-control"/>
+
+	<label for="Name" class="mt-4">Name:</label>
+	<input type="text" asp-for="Name" id="Name" name="Name" class="form-control" placeholder="Task name" required/>
+
+	<label for="Description" class="mt-4">Description:</label>
+	<input type="text" asp-for="Description" id="Description" name="Description" class="form-control" placeholder="Description" required/>
+
+	<button type="submit" class="btn btn-success mt-4">OK</button>
+</form>
