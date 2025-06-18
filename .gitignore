@@ -133,7 +133,7 @@ $RECYCLE.BIN/
 
 _NCrunch*
 
-wwwroot/
+wwwroot/lib/
 
 *.db
 *.db-shm
