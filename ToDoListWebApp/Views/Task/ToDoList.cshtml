@@ -4,6 +4,7 @@
 @model List<TaskItem>
 <h1 class="text-center">To do list:</h1>
 <a asp-controller="Task" asp-action="BackToHome" class="btn btn-primary">Return</a>
+
 <table class="table">
 	<thead>
 		<tr>
@@ -19,14 +20,14 @@
 	<tbody>
 		@foreach(var item in Model)
 		{
-			<tr>
+			<tr id="row_@item.Id" onClick="changeStatus(@item.Id)" class="@(item.IsDone ? "task-done" : "task-pending")">
 				<td>@item.Id</td>
 				<td>@item.Name</td>
 				<td>@item.Description</td>
 				<td>@item.Added</td>
 				<td>@item.IsDone</td>
-				<td><a asp-controller="Task" asp-action="DelteTask" asp-route-id="@item.Id" class="btn btn-danger">Delete</a></td>
-				<td><a asp-controller="Task" asp-action="AddEditTask" asp-route-id="@item.Id" class="btn btn-success">Edit</a></td>
+				<td><a asp-controller="Task" asp-action="DelteTask" asp-route-id="@item.Id" class="btn btn-danger" onClick="event.stopPropagation()">Delete</a></td>
+				<td><a asp-controller="Task" asp-action="AddEditTask" asp-route-id="@item.Id" class="btn btn-success" onClick="event.stopPropagation()">Edit</a></td>
 			</tr>
 		}
 	</tbody>

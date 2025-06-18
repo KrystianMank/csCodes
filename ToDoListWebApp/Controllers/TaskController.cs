@@ -21,7 +21,7 @@ namespace ToDoListWebApp.Controllers
                     return View(taskToEdit);
                 }
             }
-            return View();
+            return RedirectToAction("ToDoList");
         }
 
         public IActionResult DelteTask(int id)
@@ -60,6 +60,25 @@ namespace ToDoListWebApp.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [HttpPost]
+        public async Task<IActionResult> UpdateTaskStatus(int id, bool isDone)
+        {
+            try
+            {
+                var task = await _context.TaskItems.FindAsync(id);
+                if (task == null)
+                {
+                    return NotFound();
+                }
 
+                task.IsDone = isDone;
+                await _context.SaveChangesAsync();
+                return Ok();
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error");
+            }
+        }
     }
 }
