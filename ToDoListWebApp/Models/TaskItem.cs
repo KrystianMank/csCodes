@@ -2,6 +2,12 @@
 
 namespace ToDoListWebApp.Models
 {
+    public enum Priority
+    {
+        Low,
+        Medium,
+        High,
+    }
     public class TaskItem
     {
         public int Id { get; set; }
@@ -12,6 +18,8 @@ namespace ToDoListWebApp.Models
         [Required]
         public string? Description { get; set; }
         public DateTime Added { get; set; }
+        public DateTime Due { get; set; }
         public bool IsDone { get; set; }
+        public Priority Priority { get; set; }
     }
 }

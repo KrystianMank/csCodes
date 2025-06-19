@@ -1,17 +1,33 @@
-﻿@{
+﻿@model List<TaskItem>
+@{
 	ViewData["Title"] = "ToDoList";
 }
-@model List<TaskItem>
 <h1 class="text-center">To do list:</h1>
-<a asp-controller="Task" asp-action="BackToHome" class="btn btn-primary">Return</a>
+<div class="row">
+	<a asp-controller="Task" asp-action="BackToHome" class="btn btn-primary col-6 col-sm-3">Return</a>
 
+	<div class="dropdown col-6 col-sm-3">
+	  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" 
+		data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+		Filter
+	  </button>
+	  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+		<a class="dropdown-item" asp-controller="Task" asp-action="Filter" asp-route-option="1">All tasks</a>
+		<a class="dropdown-item" asp-controller="Task" asp-action="Filter" asp-route-option="2">Done tasks</a>
+		<a class="dropdown-item" asp-controller="Task" asp-action="Filter" asp-route-option="3">Pending tasks</a>
+	  </div>
+	</div>
+</div>
 <table class="table">
 	<thead>
 		<tr>
+			<th></th>
 			<th>Id</th>
 			<th>Name</th>
 			<th>Description</th>
 			<th>Added</th>
+			<th>Due</th>
+			<th>Priority</th>
 			<th>IsDone</th>
 			<th></th>
 			<th></th>
@@ -21,10 +37,13 @@
 		@foreach(var item in Model)
 		{
 			<tr id="row_@item.Id" onClick="changeStatus(@item.Id)" class="@(item.IsDone ? "task-done" : "task-pending")">
+				<td><input type="checkbox" class="form-check-input" checked="@item.IsDone"/></td>
 				<td>@item.Id</td>
 				<td>@item.Name</td>
 				<td>@item.Description</td>
 				<td>@item.Added</td>
+				<td>@item.Due</td>
+				<td>@item.Priority</td>
 				<td>@item.IsDone</td>
 				<td><a asp-controller="Task" asp-action="DelteTask" asp-route-id="@item.Id" class="btn btn-danger" onClick="event.stopPropagation()">Delete</a></td>
 				<td><a asp-controller="Task" asp-action="AddEditTask" asp-route-id="@item.Id" class="btn btn-success" onClick="event.stopPropagation()">Edit</a></td>
@@ -32,3 +51,4 @@
 		}
 	</tbody>
 </table>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>

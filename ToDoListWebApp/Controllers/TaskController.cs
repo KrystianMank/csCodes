@@ -21,7 +21,12 @@ namespace ToDoListWebApp.Controllers
                     return View(taskToEdit);
                 }
             }
-            return RedirectToAction("ToDoList");
+            return View();
+        }
+
+        public IActionResult Filter(int option)
+        {
+            return RedirectToAction("ToDoList", new {option});
         }
 
         public IActionResult DelteTask(int id)
@@ -35,10 +40,15 @@ namespace ToDoListWebApp.Controllers
             return RedirectToAction("ToDoList");
         }
 
-        public IActionResult ToDoList()
+        public IActionResult ToDoList(int option)
         {
-            var allTasks = _context.TaskItems.ToList();
-            return View(allTasks);
+            List<TaskItem> taskItems = option switch
+            {
+                2 => _context.TaskItems.Where(t => t.IsDone).ToList(),
+                3 => _context.TaskItems.Where(t => !t.IsDone).ToList(),
+                _ => _context.TaskItems.ToList()
+            };
+            return View(taskItems);
         }
 
         public IActionResult BackToHome()

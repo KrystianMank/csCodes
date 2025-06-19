@@ -17,3 +17,5 @@
         console.error('Network error:', error);
     }
 }
+
+$('.dropdown-toggle').dropdown();

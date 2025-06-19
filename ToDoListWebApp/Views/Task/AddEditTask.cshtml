@@ -16,6 +16,16 @@
 	<label for="Description" class="mt-4">Description:</label>
 	<input type="text" asp-for="Description" id="Description" name="Description" class="form-control" placeholder="Description" required/>
 
+	<label for="Due" class="mt-4">Due Date:</label>
+	<input type="datetime-local" asp-for="Due" id="Due" name="Due" class="form-control" required/>
+
+	<label for="Priority" class="mt-4">Priority:</label>
+	<select asp-for="Priority" class="form-control" required>
+		<option value="@Priority.Low" selected>Low</option>
+		<option value="@Priority.Medium">Medium</option>
+		<option value="@Priority.High">High</option>
+	</select>
+
 	<button type="submit" class="btn btn-success mt-4">OK</button>
-	<a asp-controller="Task" asp-action="BackToHome" class="btn btn-danger">Cancel</a>
+	<a asp-controller="Task" asp-action="BackToHome" class="btn btn-danger mt-4">Cancel</a>
 </form>
