@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations;
 
 namespace ToDoListWebApp.Models
 {
@@ -21,5 +22,8 @@ namespace ToDoListWebApp.Models
         public DateTime Due { get; set; }
         public bool IsDone { get; set; }
         public Priority Priority { get; set; }
+
+        public string UserId { get; set; }
+        public IdentityUser User {  get; set; }
     }
 }

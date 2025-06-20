@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using ToDoListWebApp.Data;
 
@@ -13,6 +14,15 @@ namespace ToDoListWebApp
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddDefaultIdentity<IdentityUser>(options =>
+            {
+                // Konfiguracja IdentityUser
+                options.SignIn.RequireConfirmedAccount = false;
+                options.Password.RequiredLength = 6;
+                options.Password.RequireDigit = true;
+            })
+            .AddEntityFrameworkStores<ApplicationDbContext>();
 
 
             builder.Services.AddControllersWithViews();
@@ -32,7 +42,9 @@ namespace ToDoListWebApp
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+            app.MapRazorPages();
 
             app.MapControllerRoute(
                 name: "default",
