@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 using ToDoListWebApp.Data;
 using ToDoListWebApp.Models;
 
@@ -21,7 +23,7 @@ namespace ToDoListWebApp.Controllers
                     return View(taskToEdit);
                 }
             }
-            return View();
+            return RedirectToAction("ToDoList", "Task");
         }
 
         public IActionResult Filter(int option)
@@ -40,14 +42,18 @@ namespace ToDoListWebApp.Controllers
             return RedirectToAction("ToDoList");
         }
 
-        public IActionResult ToDoList(int option)
+        public async Task<IActionResult> ToDoList(int option)
         {
             List<TaskItem> taskItems = option switch
             {
-                2 => _context.TaskItems.Where(t => t.IsDone).ToList(),
-                3 => _context.TaskItems.Where(t => !t.IsDone).ToList(),
-                _ => _context.TaskItems.ToList()
+                2 => await _context.TaskItems.Where(t => t.IsDone).ToListAsync(),
+                3 => await _context.TaskItems.Where(t => !t.IsDone).ToListAsync(),
+                4 => await _context.TaskItems.Where(t => t.Priority == Priority.High).ToListAsync(),
+                5 => await _context.TaskItems.Where(t => t.Priority == Priority.Medium).ToListAsync(),
+                6 => await _context.TaskItems.Where(t => t.Priority == Priority.Low).ToListAsync(),
+                _ => await _context.TaskItems.ToListAsync()
             };
+            await DeletePastDueTasks();
             return View(taskItems);
         }
 
@@ -89,6 +95,13 @@ namespace ToDoListWebApp.Controllers
             {
                 return StatusCode(500, "Internal server error");
             }
+        }
+        private async Task DeletePastDueTasks()
+        {
+            var list = await _context.TaskItems.Where(t => t.Due <= DateTime.Now).ToListAsync();
+            _context.TaskItems.RemoveRange(list);
+            await _context.SaveChangesAsync();
+
         }
     }
 }

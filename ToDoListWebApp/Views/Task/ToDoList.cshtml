@@ -13,9 +13,13 @@
 	  </button>
 	  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
 		<a class="dropdown-item" asp-controller="Task" asp-action="Filter" asp-route-option="1">All tasks</a>
+		<div class="dropdown-header">By completion</div>
 		<a class="dropdown-item" asp-controller="Task" asp-action="Filter" asp-route-option="2">Done tasks</a>
 		<a class="dropdown-item" asp-controller="Task" asp-action="Filter" asp-route-option="3">Pending tasks</a>
-	  </div>
+		<div class="dropdown-header">By priority</div>
+		<a class="dropdown-item" asp-controller="Task" asp-action="Filter" asp-route-option="4">High</a>
+		<a class="dropdown-item" asp-controller="Task" asp-action="Filter" asp-route-option="5">Medium</a>
+		<a class="dropdown-item" asp-controller="Task" asp-action="Filter" asp-route-option="6">Low</a>
 	</div>
 </div>
 <table class="table">
