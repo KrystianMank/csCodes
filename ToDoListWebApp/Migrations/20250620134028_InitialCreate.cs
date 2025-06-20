@@ -20,7 +20,9 @@ namespace ToDoListWebApp.Migrations
                     Name = table.Column<string>(type: "TEXT", nullable: false),
                     Description = table.Column<string>(type: "TEXT", nullable: false),
                     Added = table.Column<DateTime>(type: "TEXT", nullable: false),
-                    IsDone = table.Column<bool>(type: "INTEGER", nullable: false)
+                    Due = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    IsDone = table.Column<bool>(type: "INTEGER", nullable: false),
+                    Priority = table.Column<int>(type: "INTEGER", nullable: false)
                 },
                 constraints: table =>
                 {

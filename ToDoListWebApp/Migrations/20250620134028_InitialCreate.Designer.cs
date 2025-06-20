@@ -11,8 +11,8 @@ using ToDoListWebApp.Data;
 namespace ToDoListWebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250620130834_Removed_PastDueTaskItem_Table")]
-    partial class Removed_PastDueTaskItem_Table
+    [Migration("20250620134028_InitialCreate")]
+    partial class InitialCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
