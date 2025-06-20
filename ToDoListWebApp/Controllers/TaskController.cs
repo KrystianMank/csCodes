@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using ToDoListWebApp.Data;
@@ -6,6 +7,7 @@ using ToDoListWebApp.Models;
 
 namespace ToDoListWebApp.Controllers
 {
+    [Authorize]
     public class TaskController : Controller
     {
         private readonly ApplicationDbContext _context;
