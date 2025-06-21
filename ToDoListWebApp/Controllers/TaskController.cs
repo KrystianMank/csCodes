@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using ToDoListWebApp.Data;
 using ToDoListWebApp.Models;
@@ -25,7 +26,7 @@ namespace ToDoListWebApp.Controllers
                     return View(taskToEdit);
                 }
             }
-            return RedirectToAction("ToDoList", "Task");
+            return View();
         }
 
         public IActionResult Filter(int option)
@@ -46,14 +47,15 @@ namespace ToDoListWebApp.Controllers
 
         public async Task<IActionResult> ToDoList(int option)
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             List<TaskItem> taskItems = option switch
             {
-                2 => await _context.TaskItems.Where(t => t.IsDone).ToListAsync(),
-                3 => await _context.TaskItems.Where(t => !t.IsDone).ToListAsync(),
-                4 => await _context.TaskItems.Where(t => t.Priority == Priority.High).ToListAsync(),
-                5 => await _context.TaskItems.Where(t => t.Priority == Priority.Medium).ToListAsync(),
-                6 => await _context.TaskItems.Where(t => t.Priority == Priority.Low).ToListAsync(),
-                _ => await _context.TaskItems.ToListAsync()
+                2 => await _context.TaskItems.Where(t => t.IsDone && t.UserId == userId).ToListAsync(),
+                3 => await _context.TaskItems.Where(t => !t.IsDone && t.UserId == userId).ToListAsync(),
+                4 => await _context.TaskItems.Where(t => t.Priority == Priority.High && t.UserId == userId).ToListAsync(),
+                5 => await _context.TaskItems.Where(t => t.Priority == Priority.Medium && t.UserId == userId).ToListAsync(),
+                6 => await _context.TaskItems.Where(t => t.Priority == Priority.Low && t.UserId == userId).ToListAsync(),
+                _ => await _context.TaskItems.Where(t => t.UserId == userId).ToListAsync()
             };
             await DeletePastDueTasks();
             return View(taskItems);
@@ -66,6 +68,7 @@ namespace ToDoListWebApp.Controllers
 
         public IActionResult AddEditTaskSubmit(TaskItem taskItem)
         {
+            taskItem.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             if(taskItem.Id == 0)
             {
                 _context.TaskItems.Add(taskItem);

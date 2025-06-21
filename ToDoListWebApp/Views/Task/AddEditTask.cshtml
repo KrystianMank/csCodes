@@ -7,8 +7,10 @@
 </div>
 <form asp-controller="Task" asp-action="AddEditTaskSubmit">
 	<input type="hidden" asp-for="Id" class="form-control" />
-	<input type="hidden" asp-for="Added" value="@DateTime.Now" class="form-control" />
-	<input type="hidden" asp-for="IsDone" value="@false" class="form-control"/>
+	<input type="hidden" asp-for="Added" value="@if(Model == null) @DateTime.Now else @Model.Added" class="form-control" />
+	<input type="hidden" asp-for="IsDone" value="@if(Model == null) @false else @Model.IsDone" class="form-control"/>
+	<input type="hidden" asp-for="User" value="@User.Identity" />
+	
 
 	<label for="Name" class="mt-4">Name:</label>
 	<input type="text" asp-for="Name" id="Name" name="Name" class="form-control" placeholder="Task name" required/>
