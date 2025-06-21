@@ -25,6 +25,13 @@ namespace ToDoListWebApp
             .AddEntityFrameworkStores<ApplicationDbContext>();
 
 
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/Login";
+                options.LogoutPath = "/Account/Logout";
+                options.AccessDeniedPath = "/Account/AccessDenied";
+            });
+
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
@@ -48,7 +55,8 @@ namespace ToDoListWebApp
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Account}/{action=Login}/{id?}");
+                pattern: "{controller=Home}/{action=Index}/{id?}");
+
 
             app.Run();
         }
