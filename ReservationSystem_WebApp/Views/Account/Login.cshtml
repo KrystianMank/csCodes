@@ -1,4 +1,25 @@
-﻿@{
+﻿@model ReservationSystem_WebApp.ViewModels.LoginViewModel
+@{
 	ViewData["Title"] = "Login";
 }
 <h1>Login</h1>
+<form asp-controller="Account" asp-action="Login" class="form">
+	<div asp-validation-summary="All"></div>
+	<div class="form-group">
+		<label asp-for="Email">Email:</label>
+		<input type="email" asp-for="Email" class="form-control"/>
+		<span asp-validation-for="Email" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="Password">Password:</label>
+		<input type="password" asp-for="Password" class="form-control"/>
+		<span asp-validation-for="Email" class="text-danger"></span>
+	</div>
+	<div class="form-group">
+		<label asp-for="RemeberMe">
+			<input type="checkbox" asp-for="RemeberMe" class="form-check-input"/>
+			@Html.DisplayNameFor(m => m.RemeberMe);
+		</label>
+	</div>
+	<button type="submit" class="btn btn-success">Login</button>
+</form>
