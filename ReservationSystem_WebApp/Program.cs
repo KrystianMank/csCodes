@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using ReservationSystem_WebApp.Models;
+using ReservationSystem_WebApp.Repository;
+
 namespace ReservationSystem_WebApp
 {
     public class Program
@@ -7,6 +11,20 @@ namespace ReservationSystem_WebApp
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            builder.Services.AddDefaultIdentity<User>(options =>
+            {
+                options.SignIn.RequireConfirmedAccount = false;
+                options.Password.RequireDigit = true;
+                options.Password.RequiredLength = 6;
+            })
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+
+
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();
@@ -24,7 +42,9 @@ namespace ReservationSystem_WebApp
 
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
+            app.MapRazorPages();
 
             app.MapControllerRoute(
                 name: "default",
