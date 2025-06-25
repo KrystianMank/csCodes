@@ -191,14 +191,20 @@ namespace ReservationSystem_WebApp.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime>("BeginDate")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("ConferenceRoomId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("Participants")
                         .HasColumnType("int");
+
+                    b.Property<string>("Purpose")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -341,18 +347,28 @@ namespace ReservationSystem_WebApp.Migrations
             modelBuilder.Entity("ReservationSystem_WebApp.Models.Reservation", b =>
                 {
                     b.HasOne("ReservationSystem_WebApp.Models.ConferenceRoom", "ConferenceRoom")
-                        .WithMany()
+                        .WithMany("Reservations")
                         .HasForeignKey("ConferenceRoomId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("ReservationSystem_WebApp.Models.User", "User")
-                        .WithMany()
+                        .WithMany("Reservations")
                         .HasForeignKey("UserId1");
 
                     b.Navigation("ConferenceRoom");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("ReservationSystem_WebApp.Models.ConferenceRoom", b =>
+                {
+                    b.Navigation("Reservations");
+                });
+
+            modelBuilder.Entity("ReservationSystem_WebApp.Models.User", b =>
+                {
+                    b.Navigation("Reservations");
                 });
 #pragma warning restore 612, 618
         }

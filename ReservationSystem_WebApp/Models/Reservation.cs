@@ -11,16 +11,20 @@ namespace ReservationSystem_WebApp.Models
         public string? Title { get; set; }
         
         [AllowNull]
-        public string? Description { get; set; }
+        public string? Purpose { get; set; }
+
+        public DateTime BeginDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         [Required]
         public int UserId { get; set; }
-        public User User { get; set; }
+        public virtual User User { get; set; }
 
         [Required]
         public int ConferenceRoomId { get; set; }
-        public ConferenceRoom ConferenceRoom { get; set; }
+        public virtual ConferenceRoom ConferenceRoom { get; set; }
 
         public int Participants { get; set; }
+
     }
 }

@@ -11,5 +11,6 @@ namespace ReservationSystem_WebApp.Repository
             : base(options) { }
         public DbSet<Reservation> Reservations { get; set; }
         public DbSet<ConferenceRoom> ConferenceRooms { get; set; }
+
     }
 }

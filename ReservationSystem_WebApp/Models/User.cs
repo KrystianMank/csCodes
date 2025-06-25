@@ -6,5 +6,6 @@ namespace ReservationSystem_WebApp.Models
     public class User : IdentityUser
     {
         public ApplicationData.AccessType AccessType { get; set; }
+        public ICollection<Reservation> Reservations { get; set; }
     }
 }

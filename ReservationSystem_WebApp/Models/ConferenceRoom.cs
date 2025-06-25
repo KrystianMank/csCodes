@@ -12,5 +12,7 @@ namespace ReservationSystem_WebApp.Models
 
         [Required]
         public List<string>? RoomEquipment { get; set; }
+
+        public ICollection<Reservation> Reservations { get; set; }
     }
 }
