@@ -2,6 +2,7 @@ using System.Diagnostics;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ReservationSystem_WebApp.Models;
+using ReservationSystem_WebApp.ViewModels;
 
 namespace ReservationSystem_WebApp.Controllers
 {
@@ -15,8 +16,9 @@ namespace ReservationSystem_WebApp.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index(User model)
+        public IActionResult Index(User model, ReservationViewModel reservationViewModel)
         {
+            ViewBag.Model = reservationViewModel;
             return View(model);
         }
 
