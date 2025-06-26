@@ -1,8 +1,41 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+@using ReservationSystem_WebApp.Data
+@model User
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<h1 class="display-4">Welcome @User.Identity.Name</h1>
+<div class="row">
+    <div class="list-group col-md-2 mt-4">
+      <a asp-controller="Reservation" asp-action="AddEditReservation" class="list-group-item list-group-item-action">Add a new reservation</a>
+      <a href="#" class="list-group-item list-group-item-action">Search for reservation</a>
+      <a href="#" class="list-group-item list-group-item-action">All resevations</a>
+        @switch (Model.AccessType)
+        {
+            case ApplicationData.AccessType.Admin:
+            
+                break;
+            case ApplicationData.AccessType.Worker:
+                break;
+            case ApplicationData.AccessType.Client:
+                break;
+        }
+   </div>
+   <div class="col-md-10 mt-2">
+        <caption>Your reseravtions</caption>
+       <table class="table col-md-6">
+           
+           <thead>
+               <tr>
+                   <th>Id</th>
+                   <th>Title</th>
+                   <th>ConferenceRoomId</th>
+                   <th>Begin Date</th>
+                   <th>End Date</th>
+                   <th>Purpose</th>
+                   <th>Participants</th>
+               </tr>
+           </thead>
+       </table>
+    </div>
 </div>

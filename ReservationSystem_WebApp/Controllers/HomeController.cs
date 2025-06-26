@@ -15,9 +15,9 @@ namespace ReservationSystem_WebApp.Controllers
             _logger = logger;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(User model)
         {
-            return View();
+            return View(model);
         }
 
         public IActionResult Privacy()

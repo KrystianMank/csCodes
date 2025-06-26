@@ -1,0 +1,42 @@
+﻿@{
+	ViewData["Title"] = "Add / Edit reservation";
+}
+@model ReservationSystem_WebApp.ViewModels.ReservationViewModel
+
+<h2 class="text-center">Add / Edit reservation</h2>
+<form asp-controller="Reservation" asp-action="AddEditReservationSubmit" method="post">
+	<input type="hidden" asp-for="Id" />
+
+	<div class="form-group mt-4">
+		<label asp-for="Title">Title:</label>
+		<input type="text" asp-for="Title" class="form-control" />
+		<span asp-validation-for="Title" class="text-danger"></span>
+	</div>
+	<div class="form-group mt-4">
+		<label asp-for="BeginDate">Begin Date:</label>
+		<input type="datetime-local" asp-for="BeginDate" class="form-control" />
+		<span asp-validation-for="BeginDate" class="text-danger"></span>
+	</div>
+	<div class="form-group mt-4">
+		<label asp-for="EndDate">End Date:</label>
+		<input type="datetime-local" asp-for="EndDate" class="form-control" />
+		<span asp-validation-for="EndDate" class="text-danger"></span>
+	</div>
+	<div class="form-group mt-4">
+		<label asp-for="ConferenceRoomId">Conference Room Id:</label>
+		<input type="number" asp-for="ConferenceRoomId" min="1" class="form-control" />
+		<span asp-validation-for="ConferenceRoomId" class="text-danger"></span>
+	</div>
+	<div class="form-group mt-4">
+		<label asp-for="Purpose">Purpose:</label>
+		<input type="text" asp-for="Purpose" class="form-control" />
+		<span asp-validation-for="Purpose" class="text-danger"></span>
+	</div>
+	<div class="form-group mt-4">
+		<label asp-for="Participants">Participants:</label>
+		<input type="number" asp-for="Participants" min="1" class="form-control" />
+		<span asp-validation-for="Participants" class="text-danger"></span>
+	</div>
+
+	<button type="submit" class="btn btn-success">OK</button>
+</form>
