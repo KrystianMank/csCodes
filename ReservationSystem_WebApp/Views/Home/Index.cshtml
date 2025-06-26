@@ -6,10 +6,7 @@
 
 <h1 class="display-4">Welcome @User.Identity.Name</h1>
 <div class="row">
-    <div class="list-group col-md-2 mt-4">
-      <a asp-controller="Reservation" asp-action="AddEditReservation" class="list-group-item list-group-item-action">Add a new reservation</a>
-      <a href="#" class="list-group-item list-group-item-action">Search for reservation</a>
-      <a href="#" class="list-group-item list-group-item-action">All resevations</a>
+      <a asp-controller="Reservation" asp-action="ReservationList" class="list-group-item list-group-item-action">All resevations</a>
         @switch (Model.AccessType)
         {
             case ApplicationData.AccessType.Admin:
@@ -21,21 +18,4 @@
                 break;
         }
    </div>
-   <div class="col-md-10 mt-2">
-        <caption>Your reseravtions</caption>
-       <table class="table col-md-6">
-           
-           <thead>
-               <tr>
-                   <th>Id</th>
-                   <th>Title</th>
-                   <th>ConferenceRoomId</th>
-                   <th>Begin Date</th>
-                   <th>End Date</th>
-                   <th>Purpose</th>
-                   <th>Participants</th>
-               </tr>
-           </thead>
-       </table>
-    </div>
 </div>

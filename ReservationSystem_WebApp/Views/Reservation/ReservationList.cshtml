@@ -1,0 +1,43 @@
+﻿@{
+	ViewData["Title"] = "Reservation List";
+}
+@model List<Reservation>
+<div class="row">
+    <div class="list-group col-md-2 mt-4">
+      <a asp-controller="Reservation" asp-action="AddEditReservation" class="list-group-item list-group-item-action">Add a new reservation</a>
+      <a href="#" class="list-group-item list-group-item-action">Search for reservation</a>
+     </div>
+    <h2>Your reservations</h2>
+    <table class="table mt-4">  
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Title</th>
+                <th>ConferenceRoomId</th>
+                <th>Begin Date</th>
+                <th>End Date</th>
+                <th>Purpose</th>
+                <th>Participants</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in Model)
+            {
+                <tr>
+                    <td>@item.Id</td>
+                    <td>@item.Title</td>
+                    <td>@item.ConferenceRoomId</td>
+                    <td>@item.BeginDate</td>
+                    <td>@item.EndDate</td>
+                    <td>@item.Purpose</td>
+                    <td>@item.Participants</td>
+                    <td><a asp-controller="Reservation" asp-action="AddEditReservation" asp-route-item="@item" class="btn btn-success">Edit</a></td>
+                    <td><a asp-controller="Reservation" asp-action="DeleteReservation" asp-route-id="@item.Id" class="btn btn-danger">Delete</a></td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
