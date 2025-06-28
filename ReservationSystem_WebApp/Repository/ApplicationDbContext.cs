@@ -16,6 +16,13 @@ namespace ReservationSystem_WebApp.Repository
         {
             base.OnModelCreating(builder);
 
+            builder.Entity<Reservation>(e =>
+            {
+                e.HasKey(e => e.Id);
+                e.Property(e => e.Id)
+                    .ValueGeneratedOnAdd();
+            });
+
             builder.Entity<ConferenceRoom>().HasData(new ConferenceRoom
                 {
                     Id = 1,
