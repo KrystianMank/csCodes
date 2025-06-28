@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using ReservationSystem_WebApp.Models;
 using ReservationSystem_WebApp.Repository;
+using ReservationSystem_WebApp.Services;
 
 namespace ReservationSystem_WebApp
 {
@@ -22,6 +23,9 @@ namespace ReservationSystem_WebApp
                 options.Password.RequiredLength = 6;
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            builder.Services.AddScoped<IReservationService, ReservationService>();
+            builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
             builder.Services.ConfigureApplicationCookie(options =>
             {
