@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ReservationSystem_WebApp.Models;
 using ReservationSystem_WebApp.Repository;
+using ReservationSystem_WebApp.Services;
 using ReservationSystem_WebApp.ViewModels;
 using System.Security.Claims;
 
@@ -11,15 +12,15 @@ namespace ReservationSystem_WebApp.Controllers
     [Authorize]
     public class ReservationController : Controller
     {
-        private GenericRepository<Reservation> _repos;
         private readonly ILogger<ReservationController> _logger;
+        private readonly IReservationService _service;
 
         public ReservationController(
-            ApplicationDbContext context, 
+            IReservationService service, 
             ILogger<ReservationController> logger)
-        {
-            _repos = new GenericRepository<Reservation>(context);   
+        { 
             _logger = logger;
+            _service = service;
         }
 
         // Endpoint - formularz dodawania lub edycji rezerwacji
@@ -28,15 +29,13 @@ namespace ReservationSystem_WebApp.Controllers
         {
             if (id.HasValue)
             {
-                var reservation = _repos.GetById(id.Value);
+                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+                var (reservation, error) = _service.GetReservation(id.Value, userId);
                 if (reservation == null)
                 {
-                    return NotFound();
-                }
-                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                if (reservation.UserId != userId)
-                {
-                    return Forbid();
+                    TempData["ErrorMessage"] = error;
+                    return View();
                 }
                 var model = new ReservationViewModel
                 {
@@ -67,61 +66,17 @@ namespace ReservationSystem_WebApp.Controllers
             {
                 return Unauthorized();
             }
-            try
-            {
-                if (model.Id == 0) // Nowa rezerwacja
-                {
-                    if (HasConflictingReservations(model))
-                    {
-                        ModelState.AddModelError("", "Room is reserved in this time");
-                        return View("AddEditReservation", model);
-                    }
-                    var reservation = new Reservation()
-                    {
-                        Title = model.Title,
-                        BeginDate = model.BeginDate,
-                        EndDate = model.EndDate,
-                        UserId = userId,
-                        ConferenceRoomId = model.ConferenceRoomId,
-                        Purpose = model.Purpose,
-                        Participants = model.Participants,
-                    };
-                    _repos.Insert(reservation);
-                }
-                else // Aktualizacja istniejącej
-                {
-                    var existingReservation = _repos.GetById(model.Id);
-                    if (existingReservation == null)
-                    {
-                        return NotFound();
-                    }
-                    if (existingReservation.UserId != userId)
-                    {
-                        return Forbid();
-                    }
-                    if (HasConflictingReservations(model , model.Id))
-                    {
-                        ModelState.AddModelError("", "Room is reserved in this time");
-                        return View("AddEditReservation", model);
-                    }
-                    existingReservation.Title = model.Title;
-                    existingReservation.BeginDate = model.BeginDate;
-                    existingReservation.EndDate = model.EndDate;
-                    existingReservation.ConferenceRoomId = model.ConferenceRoomId;
-                    existingReservation.Purpose = model.Purpose;
-                    existingReservation.Participants = model.Participants;
 
-                    _repos.Update(existingReservation);
-                }
-                _repos.Save();
-                return RedirectToAction("ReservationList", "Reservation");
-            }
-            catch (DbUpdateException ex)
+            var (success, errorMessage) = model.Id == 0
+                ? _service.AddReservation(model, userId)
+                : _service.ModifyReservation(model, userId);
+
+            if (!success)
             {
-                _logger.LogError(ex, "Error saving reservation");
-                ModelState.AddModelError("", "There was an error while saving the reservation");
+                ModelState.AddModelError("", errorMessage);
                 return View("AddEditReservation", model);
             }
+            return RedirectToAction("ReservationList");
         }
 
         // Endpoint - lista rezerwacji
@@ -129,8 +84,7 @@ namespace ReservationSystem_WebApp.Controllers
         public IActionResult ReservationList()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var reservationList = _repos.GetAll()
-                .Where(r => r.UserId == userId).ToList();
+            var reservationList = _service.GetUserReservations(userId);
             return View(reservationList);
         }
 
@@ -140,37 +94,14 @@ namespace ReservationSystem_WebApp.Controllers
         public IActionResult DeleteReservation(int id)
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var reservation = _repos.GetById(id);
+            var (success, errorMessage) = _service.DeleteReservation(id, userId);
 
-            if (reservation == null)
+            if (!success)
             {
-                return NotFound();
+                TempData["ErrorMessage"] = errorMessage;
             }
-            if (reservation.UserId != userId)
-            {
-                return Forbid();
-            }
-
-            try
-            {
-                _repos.Delete(id);
-                _repos.Save();
-                return RedirectToAction("ReservationList");
-            }
-            catch (DbUpdateException ex)
-            {
-                _logger.LogError(ex, "Error deleting reservation");
-                TempData["ErrorMessage"] = "Error deleting reservation";
-                return RedirectToAction("ReservationList");
-            }
+            return RedirectToAction("ReservationList");
         }
-        private bool HasConflictingReservations(ReservationViewModel model, int? excludeReservationId = null)
-        {
-            var query = _repos.GetAll()
-                .Where(r => r.ConferenceRoomId == model.ConferenceRoomId &&
-                    (excludeReservationId == null || r.Id != excludeReservationId) &&
-                    (model.EndDate < r.EndDate && model.EndDate > r.BeginDate));
-            return query.Any();
-        }
+        
     }
 }
