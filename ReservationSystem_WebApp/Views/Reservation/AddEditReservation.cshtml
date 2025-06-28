@@ -5,7 +5,8 @@
 
 <h2 class="text-center">Add / Edit reservation</h2>
 <form asp-controller="Reservation" asp-action="AddEditReservationSubmit" method="post">
-	<input type="hidden" asp-for="Id" />
+	<div asp-validation-summary="All" class="text-danger"></div>
+	<input type="hidden" asp-for="Id" value="@(Model.Id > 0 ? Model.Id : 0)"/>
 
 	<div class="form-group mt-4">
 		<label asp-for="Title">Title:</label>

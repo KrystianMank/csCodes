@@ -38,6 +38,7 @@ namespace ReservationSystem_WebApp.Services
                 .ToList();
         }
 
+
         public (bool Success, string ErrorMessage) AddReservation(ReservationViewModel model, string userId)
         {
             var validationResult = ValidateReservation(model);

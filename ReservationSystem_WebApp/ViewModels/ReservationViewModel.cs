@@ -5,6 +5,12 @@ namespace ReservationSystem_WebApp.ViewModels
 {
     public class ReservationViewModel
     {
+        public ReservationViewModel() 
+        { 
+            BeginDate = DateTime.Now.Date;
+            EndDate = DateTime.Now.Date;
+            ConferenceRoomId = 1;
+        }
         public int Id { get; set; }
         [Required]
         [Display(Name = "Title")]
