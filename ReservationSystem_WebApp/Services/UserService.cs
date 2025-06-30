@@ -17,9 +17,17 @@ namespace ReservationSystem_WebApp.Services
             _logger = logger;
         }
 
-        public User GetUser(string userId)
+        public (User User, string ErrorMessage) GetUser(string userId)
         {
-            throw new NotImplementedException();
+            var user = _userManager.Users.First(u => u.Id == userId);
+            if (user == null)
+            {
+                return (null, "User not found");
+            }
+            else
+            {
+                return (user, null);
+            }
         }
 
         public List<User> GetUsers()
@@ -49,14 +57,18 @@ namespace ReservationSystem_WebApp.Services
             }
         }
 
-        Task<(bool Success, string ErrorMessage)> IUserService.DeleteUserAsync(string userIdToDelete, string userId)
+        public async Task<(bool Success, string ErrorMessage)> DeleteUserAsync(string userIdToDelete)
         {
-            throw new NotImplementedException();
-        }
-
-        Task<(bool Success, string ErrorMessage)> IUserService.UpdateUserAsync(UserViewModel model, string userId)
-        {
-            throw new NotImplementedException();
+            var user = await _userManager.Users.FirstAsync(u => u.Id == userIdToDelete);
+            if (user == null) 
+            { 
+                return (false, "User not found"); 
+            }
+            else
+            {
+                await _userManager.DeleteAsync(user);
+                return (true, null);
+            }
         }
     }
 }

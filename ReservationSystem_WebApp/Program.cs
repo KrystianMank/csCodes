@@ -26,6 +26,7 @@ namespace ReservationSystem_WebApp
 
             builder.Services.AddScoped<IReservationService, ReservationService>();
             builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
+            builder.Services.AddScoped<IUserService, UserService>();
 
             builder.Services.ConfigureApplicationCookie(options =>
             {

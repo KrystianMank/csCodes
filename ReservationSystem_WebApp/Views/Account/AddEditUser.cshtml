@@ -7,7 +7,7 @@
 <h2>Add / Edit User</h2>
 <form asp-controller="Account" asp-action="AddEditUserSubmit" method="post">
 	<div asp-validation-summary="All"></div>
-	<input type="hidden" asp-for="Id" value="@(Model.Id == null ? null : Model.Id)"/>
+	<input type="hidden" asp-for="Id" value="@(Model.Id == null)"/>
 
 	<div class="form-group mt-4">
 		<label asp-for="Email">Email</label>
@@ -25,8 +25,7 @@
 		<label asp-for="AccessType">AccessType</label>
 		<select asp-for="AccessType" class="form-control">
 			<option value="@ApplicationData.AccessType.Admin">Admin</option>
-			<option value="@ApplicationData.AccessType.Worker">Worker</option>
-			<option value="@ApplicationData.AccessType.Client" selected>Client</option>
+			<option value="@ApplicationData.AccessType.Worker" selected>Worker</option>
 		</select>
 		<span asp-validation-for="AccessType"></span>
 	</div>

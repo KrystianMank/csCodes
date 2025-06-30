@@ -6,9 +6,9 @@ namespace ReservationSystem_WebApp.Services
     public interface IUserService
     {
         Task<(bool Success, string ErrorMessage)> AddUserAsync(UserViewModel model);
-        Task<(bool Success, string ErrorMessage)> UpdateUserAsync(UserViewModel model, string userId);
-        Task<(bool Success, string ErrorMessage)> DeleteUserAsync(string userIdToDelete, string userId);
+        //Task<(bool Success, string ErrorMessage)> UpdateUserAsync(UserViewModel model);
+        Task<(bool Success, string ErrorMessage)> DeleteUserAsync(string userIdToDelete);
         List<User> GetUsers();
-        User GetUser(string userId);
+        (User User, string ErrorMessage) GetUser(string userId);
     }
 }

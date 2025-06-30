@@ -4,6 +4,8 @@ using ReservationSystem_WebApp.Models;
 using ReservationSystem_WebApp.ViewModels;
 using ReservationSystem_WebApp.Data;
 using System.Threading.Tasks;
+using ReservationSystem_WebApp.Services;
+using System.Security.Claims;
 
 namespace ReservationSystem_WebApp.Controllers
 {
@@ -11,11 +13,19 @@ namespace ReservationSystem_WebApp.Controllers
     {
         private UserManager<User> _userManager;
         private SignInManager<User> _signInManager;
+        private IUserService _userService;
+        private ILogger<AccountController> _logger;
 
-        public AccountController(UserManager<User> userManager, SignInManager<User> signInManager)
+        public AccountController
+            (UserManager<User> userManager, 
+            SignInManager<User> signInManager,
+            IUserService userService,
+            ILogger<AccountController> logger)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _userService = userService;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -73,6 +83,48 @@ namespace ReservationSystem_WebApp.Controllers
         {
             await _signInManager.SignOutAsync();
             return RedirectToAction("Login", "Account");
+        }
+
+        [HttpGet]
+        public IActionResult AddEditUser()
+        {
+            return View(new UserViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddEditUserSubmit(UserViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("AddEditUser", model);
+            }
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            if (string.IsNullOrEmpty(userId))
+            {
+                return Unauthorized();
+            }
+
+            var (success, errorMessage) = await _userService.AddUserAsync(model);
+            
+            if (!success)
+            {
+                ModelState.AddModelError("", errorMessage);
+            }
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public IActionResult UsersList()
+        {
+            var list = _userService.GetUsers();
+            return View(list);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> DeleteUser(string userId)
+        {
+            await _userService.DeleteUserAsync(userId);
+            return RedirectToAction("UserList", "Account");
         }
     }
 }
