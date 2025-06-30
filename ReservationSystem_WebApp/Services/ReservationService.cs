@@ -90,7 +90,7 @@ namespace ReservationSystem_WebApp.Services
             {
                 return (false, "You don't have permission to modify this reservation");
             }
-            if (HasConflictingReservations(model))
+            if (HasConflictingReservations(model, existingReservation.Id))
             {
                 return (false, "The room is already booked for the selected time period");
             }
