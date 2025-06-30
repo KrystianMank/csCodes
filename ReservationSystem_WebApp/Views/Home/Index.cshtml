@@ -7,7 +7,8 @@
 <h1 class="display-4">Welcome @User.Identity.Name</h1>
 <div class="row">
       <a asp-controller="Reservation" asp-action="ReservationList" class="list-group-item list-group-item-action">All resevations</a>
-        @switch (Model.AccessType)
+      <a asp-controller="Account" asp-action="UsersList" class="list-group-item list-group-item-active">User list</a>  
+      @switch (Model.AccessType)
         {
             case ApplicationData.AccessType.Admin:
             

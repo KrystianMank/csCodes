@@ -1,0 +1,27 @@
+﻿@{
+	ViewData["Title"] = "Users List";
+}
+@model List<User>
+<h2>Users List</h2>
+<div class="row">
+      <a asp-controller="Account" asp-action="AddEditUser" class="list-group-item list-group-item-active col-md-4">Add / Edit User</a>
+</div>
+<table class="table">
+	<thead>
+		<tr>
+			<th>Email</th>
+			<th>Access Type</th>
+			<th>Id</th>
+		</tr>
+	</thead>
+	<tbody>
+		@foreach(var item in Model)
+		{
+			<tr>
+				<td>@item.Email</td>
+				<td>@item.AccessType</td>
+				<td>@item.Id</td>
+			</tr>
+		}
+	</tbody>
+</table>
