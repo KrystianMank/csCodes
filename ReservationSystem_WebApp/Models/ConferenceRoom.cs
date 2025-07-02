@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ReservationSystem_WebApp.Models
 {
@@ -8,7 +9,7 @@ namespace ReservationSystem_WebApp.Models
 
         [Required]
         public string? Name { get; set; }
-        public int RoomCapaity { get; set; }
+        public int RoomCapacity { get; set; }
 
         [Required]
         public List<string>? RoomEquipment { get; set; }

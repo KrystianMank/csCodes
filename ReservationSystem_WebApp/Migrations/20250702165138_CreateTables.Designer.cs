@@ -12,8 +12,8 @@ using ReservationSystem_WebApp.Repository;
 namespace ReservationSystem_WebApp.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20250625181219_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250702165138_CreateTables")]
+    partial class CreateTables
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -174,7 +174,7 @@ namespace ReservationSystem_WebApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RoomCapaity")
+                    b.Property<int>("RoomCapacity")
                         .HasColumnType("int");
 
                     b.PrimitiveCollection<string>("RoomEquipment")
@@ -184,6 +184,22 @@ namespace ReservationSystem_WebApp.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ConferenceRooms");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Sala A",
+                            RoomCapacity = 30,
+                            RoomEquipment = "[\"Rzutnik multimedialny\",\"Ekran projekcyjny\",\"Tablica sucho\\u015Bcieralna\"]"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Sala Gimnastyczna",
+                            RoomCapacity = 50,
+                            RoomEquipment = "[\"Klimatyzacja\",\"Rolety zaciemniaj\\u0105ce\",\"Stoliki w uk\\u0142adzie boardroom\",\"\\u0141adowarki USB\",\"Woda i szklanki\"]"
+                        });
                 });
 
             modelBuilder.Entity("ReservationSystem_WebApp.Models.Reservation", b =>
@@ -213,17 +229,15 @@ namespace ReservationSystem_WebApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("UserId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("UserId1")
+                    b.Property<string>("UserId")
+                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("ConferenceRoomId");
 
-                    b.HasIndex("UserId1");
+                    b.HasIndex("UserId");
 
                     b.ToTable("Reservations");
                 });
@@ -357,7 +371,9 @@ namespace ReservationSystem_WebApp.Migrations
 
                     b.HasOne("ReservationSystem_WebApp.Models.User", "User")
                         .WithMany("Reservations")
-                        .HasForeignKey("UserId1");
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("ConferenceRoom");
 

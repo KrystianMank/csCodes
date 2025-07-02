@@ -3,10 +3,12 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace ReservationSystem_WebApp.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class CreateTables : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -58,7 +60,7 @@ namespace ReservationSystem_WebApp.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    RoomCapaity = table.Column<int>(type: "int", nullable: false),
+                    RoomCapacity = table.Column<int>(type: "int", nullable: false),
                     RoomEquipment = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
@@ -182,8 +184,7 @@ namespace ReservationSystem_WebApp.Migrations
                     Purpose = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     BeginDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<int>(type: "int", nullable: false),
-                    UserId1 = table.Column<string>(type: "nvarchar(450)", nullable: true),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     ConferenceRoomId = table.Column<int>(type: "int", nullable: false),
                     Participants = table.Column<int>(type: "int", nullable: false)
                 },
@@ -191,16 +192,26 @@ namespace ReservationSystem_WebApp.Migrations
                 {
                     table.PrimaryKey("PK_Reservations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Reservations_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
+                        name: "FK_Reservations_AspNetUsers_UserId",
+                        column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_Reservations_ConferenceRooms_ConferenceRoomId",
                         column: x => x.ConferenceRoomId,
                         principalTable: "ConferenceRooms",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "ConferenceRooms",
+                columns: new[] { "Id", "Name", "RoomCapacity", "RoomEquipment" },
+                values: new object[,]
+                {
+                    { 1, "Sala A", 30, "[\"Rzutnik multimedialny\",\"Ekran projekcyjny\",\"Tablica sucho\\u015Bcieralna\"]" },
+                    { 2, "Sala Gimnastyczna", 50, "[\"Klimatyzacja\",\"Rolety zaciemniaj\\u0105ce\",\"Stoliki w uk\\u0142adzie boardroom\",\"\\u0141adowarki USB\",\"Woda i szklanki\"]" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -248,9 +259,9 @@ namespace ReservationSystem_WebApp.Migrations
                 column: "ConferenceRoomId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Reservations_UserId1",
+                name: "IX_Reservations_UserId",
                 table: "Reservations",
-                column: "UserId1");
+                column: "UserId");
         }
 
         /// <inheritdoc />

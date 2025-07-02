@@ -171,7 +171,7 @@ namespace ReservationSystem_WebApp.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("RoomCapaity")
+                    b.Property<int>("RoomCapacity")
                         .HasColumnType("int");
 
                     b.PrimitiveCollection<string>("RoomEquipment")
@@ -187,14 +187,14 @@ namespace ReservationSystem_WebApp.Migrations
                         {
                             Id = 1,
                             Name = "Sala A",
-                            RoomCapaity = 30,
+                            RoomCapacity = 30,
                             RoomEquipment = "[\"Rzutnik multimedialny\",\"Ekran projekcyjny\",\"Tablica sucho\\u015Bcieralna\"]"
                         },
                         new
                         {
                             Id = 2,
                             Name = "Sala Gimnastyczna",
-                            RoomCapaity = 50,
+                            RoomCapacity = 50,
                             RoomEquipment = "[\"Klimatyzacja\",\"Rolety zaciemniaj\\u0105ce\",\"Stoliki w uk\\u0142adzie boardroom\",\"\\u0141adowarki USB\",\"Woda i szklanki\"]"
                         });
                 });
@@ -305,25 +305,6 @@ namespace ReservationSystem_WebApp.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "1",
-                            AccessFailedCount = 0,
-                            AccessType = 0,
-                            ConcurrencyStamp = "STATIC-CONCURRENCY-001",
-                            Email = "admin@gmail.com",
-                            EmailConfirmed = true,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@GMAIL.COM",
-                            NormalizedUserName = "ADMIN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEK+1t25692ameNkQi4jWUGcBDqb+Yi1B28x8DupJ7a/l/DCzrXTxZyK1G0XlFgcjrg==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "STATIC-SECURITY-STAMP-001",
-                            TwoFactorEnabled = false,
-                            UserName = "Admin"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

@@ -162,9 +162,9 @@ namespace ReservationSystem_WebApp.Services
             {
                 return (false, errorMessage);
             }
-            if (model.Participants > conferenceRoom.RoomCapaity)
+            if (model.Participants > conferenceRoom.RoomCapacity)
             {
-                return (false, $"Number of participants exeed room capacity: {conferenceRoom.RoomCapaity}");
+                return (false, $"Number of participants exeed room capacity: {conferenceRoom.RoomCapacity}");
             }
             if (model.BeginDate < DateTime.Now.AddMinutes(-1))
             {
