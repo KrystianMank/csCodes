@@ -74,6 +74,7 @@ namespace ReservationSystem_WebApp.Controllers
             if (!success)
             {
                 ModelState.AddModelError("", errorMessage);
+                _logger.LogError(errorMessage);
                 return View("AddEditReservation", model);
             }
             return RedirectToAction("ReservationList");

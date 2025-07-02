@@ -123,7 +123,11 @@ namespace ReservationSystem_WebApp.Controllers
         [HttpPost]
         public async Task<IActionResult> DeleteUser(string userId)
         {
-            await _userService.DeleteUserAsync(userId);
+            var (success, errorMessage) = await _userService.DeleteUserAsync(userId);
+            if (!success)
+            {
+                ModelState.AddModelError("", errorMessage);
+            }
             return RedirectToAction("UserList", "Account");
         }
     }
