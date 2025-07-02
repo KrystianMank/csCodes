@@ -13,13 +13,16 @@ namespace ReservationSystem_WebApp.Controllers
     public class ReservationController : Controller
     {
         private readonly ILogger<ReservationController> _logger;
+        private readonly IConferenceRoomService _roomService;
         private readonly IReservationService _service;
 
         public ReservationController(
             IReservationService service, 
+            IConferenceRoomService roomService,
             ILogger<ReservationController> logger)
         { 
             _logger = logger;
+            _roomService = roomService;
             _service = service;
         }
 
@@ -27,6 +30,7 @@ namespace ReservationSystem_WebApp.Controllers
         [HttpGet]
         public IActionResult AddEditReservation(int? id)
         {
+            ViewBag.ConferenceRooms = _roomService.GetConferenceRoomsList();
             if (id.HasValue)
             {
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
