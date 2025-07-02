@@ -14,19 +14,23 @@ namespace ReservationSystem_WebApp.Controllers
     {
         private readonly ILogger<ReservationController> _logger;
         private readonly IReservationService _service;
+        private readonly IConferenceRoomService _roomService;
 
         public ReservationController(
             IReservationService service, 
+            IConferenceRoomService roomService,
             ILogger<ReservationController> logger)
         { 
             _logger = logger;
             _service = service;
+            _roomService = roomService;
         }
 
         // Endpoint - formularz dodawania lub edycji rezerwacji
         [HttpGet]
         public IActionResult AddEditReservation(int? id)
         {
+            ViewBag.ConferenceRooms = _roomService.GetConferenceRoomsList();
             if (id.HasValue)
             {
                 var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
