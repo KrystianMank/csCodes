@@ -8,13 +8,16 @@ namespace ReservationSystem_WebApp.Services
     public class ReservationService : IReservationService
     {
         private IGenericRepository<Reservation> _repos;
+        private IConferenceRoomService _roomService;
         private readonly ILogger<ReservationService> _logger;
 
         public ReservationService
             (IGenericRepository<Reservation> repos, 
+            IConferenceRoomService roomService,
                 ILogger<ReservationService> logger) 
         {
             _repos = repos;
+            _roomService = roomService;
             _logger = logger;
         }
 
@@ -153,6 +156,16 @@ namespace ReservationSystem_WebApp.Services
         }
         private (bool Success, string ErrorMessage) ValidateReservation(ReservationViewModel model)
         {
+            var (conferenceRoom, errorMessage) = _roomService.GetConferenceRoom(model.ConferenceRoomId);
+            
+            if (conferenceRoom == null)
+            {
+                return (false, errorMessage);
+            }
+            if (model.Participants > conferenceRoom.RoomCapaity)
+            {
+                return (false, $"Number of participants exeed room capacity: {conferenceRoom.RoomCapaity}");
+            }
             if (model.BeginDate < DateTime.Now.AddMinutes(-1))
             {
                 return (false, "Start date cannot be in the past");
@@ -164,6 +177,7 @@ namespace ReservationSystem_WebApp.Services
             if ((model.EndDate - model.BeginDate).TotalMinutes < 15){
                 return (false, "Minumum reservation time is 15 minutes");
             }
+            
             return (true, null);
         }
     }
