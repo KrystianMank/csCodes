@@ -1,7 +1,5 @@
 ﻿@{
 	ViewData["Title"] = "Add / Edit reservation";
-	List<ConferenceRoom> conferenceRooms = new List<ConferenceRoom>();
-	conferenceRooms.AddRange(ViewBag.ConferenceRooms);
 }
 @model ReservationSystem_WebApp.ViewModels.ReservationViewModel
 
@@ -26,13 +24,8 @@
 		<span asp-validation-for="EndDate" class="text-danger"></span>
 	</div>
 	<div class="form-group mt-4">
-		<label asp-for="ConferenceRoomId">Conference Room: </label>
-		<select asp-for="ConferenceRoomId" class="form-control" >
-			@foreach(var item in conferenceRooms)
-			{
-				<option value="@item.Id">@item.Id - @item.Name</option>
-			}
-		</select>
+		<label asp-for="ConferenceRoomId">Conference Room Id:</label>
+		<input type="number" asp-for="ConferenceRoomId" min="1" class="form-control" />
 		<span asp-validation-for="ConferenceRoomId" class="text-danger"></span>
 	</div>
 	<div class="form-group mt-4">
