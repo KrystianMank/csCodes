@@ -1,0 +1,40 @@
+﻿@model ConferenceRoom
+@{
+	ViewData["Title"] = Model.Name;
+}
+<h2>Room detail for: @Model.Name</h2>
+<p>Room capacity: @Model.RoomCapacity</p>
+	@if(Model.RoomEquipment != null)
+	{
+		<ul>Room equipment:
+		@foreach(var item in Model.RoomEquipment.ToList())
+		{
+			<li>@item</li>
+		}
+		</ul>
+	}
+<h3>Reservations for this room</h3>
+<table class="table">
+	<thead>
+		<tr>
+			<th>Reservation id</th>
+			<th>Begin date</th>
+			<th>End date</th>
+			<th>User</th>
+		</tr>
+	</thead>
+	<tbody>
+		@if(@Model.Reservations != null)
+		{
+			@foreach (var reservation in Model.Reservations.ToList())
+			{
+				<tr>
+					<td>@reservation.Id</td>
+					<td>@reservation.BeginDate</td>
+					<td>@reservation.EndDate</td>
+					<td>@reservation.User.UserName</td>
+				</tr>
+			}
+		}
+	</tbody>
+</table>
