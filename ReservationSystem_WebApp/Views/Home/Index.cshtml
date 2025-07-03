@@ -4,18 +4,19 @@
 @using ReservationSystem_WebApp.Data
 @model User
 
-<h1 class="display-4">Welcome @User.Identity.Name</h1>
+<h1 class="display-4">Welcome @Model.UserName</h1>
 <div class="row">
-      <a asp-controller="Reservation" asp-action="ReservationList" class="list-group-item list-group-item-action">All resevations</a>
-      <a asp-controller="Account" asp-action="UsersList" class="list-group-item list-group-item-active">User list</a>  
+      <a asp-controller="Reservation" asp-action="ReservationList" class="list-group-item list-group-item-action">All resevations</a>      
       <a asp-controller="ConferenceRoom" asp-action="ConferenceRoomsList" class="list-group-item list-group-item-active">Conference Rooms</a>  
 
       @switch (Model.AccessType)
         {
             case ApplicationData.AccessType.Admin:
-            
+                <a asp-controller="Account" asp-action="UsersList" class="list-group-item list-group-item-active">User list</a>  
                 break;
             case ApplicationData.AccessType.Worker:
+                 <a asp-controller="Account" asp-action="UsersList" class="list-group-item list-group-item-active">User list</a>  
+
                 break;
             case ApplicationData.AccessType.Client:
                 break;

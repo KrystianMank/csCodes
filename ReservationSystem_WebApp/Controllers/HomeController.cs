@@ -1,7 +1,10 @@
 using System.Diagnostics;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ReservationSystem_WebApp.Models;
+using ReservationSystem_WebApp.Services;
 using ReservationSystem_WebApp.ViewModels;
 
 namespace ReservationSystem_WebApp.Controllers
@@ -10,16 +13,31 @@ namespace ReservationSystem_WebApp.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IUserService _userService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(
+            IUserService userService,
+            ILogger<HomeController> logger)
         {
+            _userService = userService;
             _logger = logger;
         }
 
-        public IActionResult Index(User model, ReservationViewModel reservationViewModel)
+        public IActionResult Index()
         {
-            ViewBag.Model = reservationViewModel;
-            return View(model);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var (user, errorMessage) = _userService.GetUser(userId);
+            if(user != null)
+            {
+                return View(user);
+            }
+            else
+            {
+                _logger.LogError(errorMessage);
+                ModelState.AddModelError(string.Empty, errorMessage);
+                return RedirectToAction("Login", "Account");
+            }
+            
         }
 
         public IActionResult Privacy()
