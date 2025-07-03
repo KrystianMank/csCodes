@@ -14,18 +14,26 @@ namespace ReservationSystem_WebApp.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly IUserService _userService;
+        private readonly IReservationService _reservationService;
+        private NotificationService _notificationService;
 
         public HomeController(
             IUserService userService,
+            IReservationService reservationService,
             ILogger<HomeController> logger)
         {
             _userService = userService;
+            _reservationService = reservationService;
             _logger = logger;
+            _notificationService = new NotificationService(reservationService);
         }
 
         public IActionResult Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var todaysReservations = _notificationService.NotifyUser(userId);
+            ViewBag.TodaysReservations = todaysReservations;
+
             var (user, errorMessage) = _userService.GetUser(userId);
             if(user != null)
             {

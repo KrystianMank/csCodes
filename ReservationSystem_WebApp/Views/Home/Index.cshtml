@@ -1,10 +1,18 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    List<Reservation> todaysReservations = new List<Reservation>();
+    todaysReservations.AddRange(ViewBag.TodaysReservations);
 }
 @using ReservationSystem_WebApp.Data
 @model User
 
 <h1 class="display-4">Welcome @Model.UserName</h1>
+<ul> Your reservations for today
+    @foreach(var item in todaysReservations)
+    {
+        <li>Id: @item.Id - Title: @item.Title, for room: @item.ConferenceRoomId</li>
+    }
+</ul>
 <div class="row">
       <a asp-controller="Reservation" asp-action="ReservationList" class="list-group-item list-group-item-action">All resevations</a>      
       <a asp-controller="ConferenceRoom" asp-action="ConferenceRoomsList" class="list-group-item list-group-item-active">Conference Rooms</a>  
