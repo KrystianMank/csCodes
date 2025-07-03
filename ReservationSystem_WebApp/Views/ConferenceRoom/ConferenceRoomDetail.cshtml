@@ -2,17 +2,24 @@
 @{
 	ViewData["Title"] = Model.Name;
 }
-<h2>Room detail for: @Model.Name</h2>
-<p>Room capacity: @Model.RoomCapacity</p>
-	@if(Model.RoomEquipment != null)
-	{
-		<ul>Room equipment:
-		@foreach(var item in Model.RoomEquipment.ToList())
-		{
-			<li>@item</li>
-		}
-		</ul>
-	}
+<div class="row">
+	<div class="col-md-3">
+		<img src="/images/@(Model.Name).jpg" class="card-img-top" alt="@Model.Name" />"
+	</div>
+	<div class="col-md-6">
+
+		<h2>Room detail for: @Model.Name</h2>
+		<p>Room capacity: @Model.RoomCapacity</p>
+			@if(Model.RoomEquipment != null)
+			{
+				<ul>Room equipment:
+				@foreach(var item in Model.RoomEquipment.ToList())
+				{
+					<li>@item</li>
+				}
+				</ul>
+			}
+	</div>
 <h3>Reservations for this room</h3>
 <table class="table">
 	<thead>

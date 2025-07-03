@@ -6,7 +6,7 @@
 @foreach(var item in Model)
 {
 	<div class="card" style="width: 18rem; float: left; margin-left: 10px;">
-		<img src="@System.IO.Path.Combine(AppContext.BaseDirectory, $"/images/{item.Name}.jpg")" class="card-img-top" alt="@item.Name" />
+		<img src="/images/@(item.Name).jpg" class="card-img-top" alt="@item.Name" />
 		<div class="card-body">
 			<h5 class="card-title">@item.Name</h5>
 			<a asp-controller="ConferenceRoom" asp-action="ConferenceRoomDetail" asp-route-roomId="@item.Id" class="btn btn-primary">See more</a>
