@@ -1,7 +1,10 @@
 ﻿@{
 	ViewData["Title"] = "Add / Edit reservation";
 	List<ConferenceRoom> conferenceRooms = new List<ConferenceRoom>();
-	conferenceRooms.AddRange(ViewBag.ConferenceRooms);
+	if(ViewBag.ConferenceRooms != null)
+	{
+		conferenceRooms.AddRange(ViewBag.ConferenceRooms);
+	}
 }
 @model ReservationSystem_WebApp.ViewModels.ReservationViewModel
 

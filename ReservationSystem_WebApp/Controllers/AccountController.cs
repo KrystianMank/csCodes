@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using ReservationSystem_WebApp.Services;
 using System.Security.Claims;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ReservationSystem_WebApp.Controllers
 {
@@ -87,8 +88,17 @@ namespace ReservationSystem_WebApp.Controllers
         }
 
         [HttpGet]
-        public IActionResult AddEditUser()
+        public async Task<IActionResult> AddEditUser()
         {
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null)
+            {
+                return Unauthorized(new { message = "User not authenticated" });
+            }
+            if (currentUser.AccessType == ApplicationData.AccessType.Client)
+            {
+                return Unauthorized(new { message = "You don't have perrmision for this operation" });
+            }
             return View(new UserViewModel());
         }
 
@@ -133,6 +143,10 @@ namespace ReservationSystem_WebApp.Controllers
             if (currentUser == null)
             {
                 return Unauthorized(new { message = "User not authenticated" });
+            }
+            if(currentUser.AccessType == ApplicationData.AccessType.Client)
+            {
+                return Unauthorized(new { message = "You don't have perrmision for this operation" });
             }
             if (currentUser.Id == request.UserId)
             {

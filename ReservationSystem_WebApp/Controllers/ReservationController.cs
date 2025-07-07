@@ -63,6 +63,7 @@ namespace ReservationSystem_WebApp.Controllers
         {
             if (!ModelState.IsValid)
             {
+                ViewBag.ConferenceRooms = _roomService.GetConferenceRoomsList();
                 return View("AddEditReservation", model);
             }
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -79,6 +80,7 @@ namespace ReservationSystem_WebApp.Controllers
             {
                 ModelState.AddModelError("", errorMessage);
                 _logger.LogError(errorMessage);
+                ViewBag.ConferenceRooms = _roomService.GetConferenceRoomsList();
                 return View("AddEditReservation", model);
             }
             return RedirectToAction("ReservationList");
