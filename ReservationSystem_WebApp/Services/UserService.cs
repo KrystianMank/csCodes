@@ -57,18 +57,22 @@ namespace ReservationSystem_WebApp.Services
             }
         }
 
-        public async Task<(bool Success, string ErrorMessage)> DeleteUserAsync(string userIdToDelete)
+        public async Task<(bool Success, string ErrorMessage)> DeleteUserAsync(string userId)
         {
-            var user = await _userManager.Users.FirstAsync(u => u.Id == userIdToDelete);
-            if (user == null) 
-            { 
-                return (false, "User not found"); 
-            }
-            else
+            var user = await _userManager.FindByIdAsync(userId);
+            if (user == null)
             {
-                await _userManager.DeleteAsync(user);
-                return (true, null);
+                return (false, "User not found");
             }
+
+            var result = await _userManager.DeleteAsync(user);
+            if (!result.Succeeded)
+            {
+                var errors = string.Join(", ", result.Errors.Select(e => e.Description));
+                return (false, $"Failed to delete user: {errors}");
+            }
+
+            return (true, null);
         }
     }
 }

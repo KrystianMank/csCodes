@@ -6,6 +6,7 @@ using ReservationSystem_WebApp.Data;
 using System.Threading.Tasks;
 using ReservationSystem_WebApp.Services;
 using System.Security.Claims;
+using System.ComponentModel.DataAnnotations;
 
 namespace ReservationSystem_WebApp.Controllers
 {
@@ -121,14 +122,46 @@ namespace ReservationSystem_WebApp.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> DeleteUser(string userId)
+        public async Task<IActionResult> DeleteUser([FromBody] DeleteUserRequest request)
         {
-            var (success, errorMessage) = await _userService.DeleteUserAsync(userId);
-            if (!success)
+            if (!ModelState.IsValid)
             {
-                ModelState.AddModelError("", errorMessage);
+                return BadRequest(new { message = "Invalid request" });
             }
-            return RedirectToAction("UserList", "Account");
+
+            var currentUser = await _userManager.GetUserAsync(User);
+            if (currentUser == null)
+            {
+                return Unauthorized(new { message = "User not authenticated" });
+            }
+            if (currentUser.Id == request.UserId)
+            {
+                return BadRequest(new { message = "You can't delete your own account" });
+            }
+
+            try
+            {
+                var (success, errorMessage) = await _userService.DeleteUserAsync(request.UserId);
+                if (!success)
+                {
+                    return BadRequest(new { message = errorMessage });
+                }
+
+                return Ok(new { message = "User deleted successfully" });
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex, "Error deleting user {UserId}", request.UserId);
+                return StatusCode(500, new { message = "An error occured while deleting the user" });
+            }
+
         }
+
+    }
+
+    public class DeleteUserRequest
+    {
+        [Required]
+        public string UserId { get; set; }
     }
 }

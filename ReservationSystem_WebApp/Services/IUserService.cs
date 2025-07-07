@@ -7,7 +7,7 @@ namespace ReservationSystem_WebApp.Services
     {
         Task<(bool Success, string ErrorMessage)> AddUserAsync(UserViewModel model);
         //Task<(bool Success, string ErrorMessage)> UpdateUserAsync(UserViewModel model);
-        Task<(bool Success, string ErrorMessage)> DeleteUserAsync(string userIdToDelete);
+        Task<(bool Success, string ErrorMessage)> DeleteUserAsync(string userId);
         List<User> GetUsers();
         (User User, string ErrorMessage) GetUser(string userId);
     }

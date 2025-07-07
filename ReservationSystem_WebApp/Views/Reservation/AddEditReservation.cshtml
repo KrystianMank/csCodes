@@ -8,26 +8,26 @@
 <h2 class="text-center">Add / Edit reservation</h2>
 <form asp-controller="Reservation" asp-action="AddEditReservationSubmit" method="post">
 	<div asp-validation-summary="All" class="text-danger"></div>
-	<input type="hidden" asp-for="Id" value="@(Model.Id > 0 ? Model.Id : 0)"/>
+	<input type="hidden" asp-for="Id" name="id" value="@(Model.Id > 0 ? Model.Id : 0)"/>
 
 	<div class="form-group mt-4">
 		<label asp-for="Title">Title:</label>
-		<input type="text" asp-for="Title" class="form-control" />
+		<input type="text" asp-for="Title" name="title" class="form-control" />
 		<span asp-validation-for="Title" class="text-danger"></span>
 	</div>
 	<div class="form-group mt-4">
 		<label asp-for="BeginDate">Begin Date:</label>
-		<input type="datetime-local" asp-for="BeginDate" class="form-control" />
+		<input type="datetime-local" asp-for="BeginDate" name="beginDate" class="form-control" />
 		<span asp-validation-for="BeginDate" class="text-danger"></span>
 	</div>
 	<div class="form-group mt-4">
 		<label asp-for="EndDate">End Date:</label>
-		<input type="datetime-local" asp-for="EndDate" class="form-control" />
+		<input type="datetime-local" asp-for="EndDate" name="endDate" class="form-control" />
 		<span asp-validation-for="EndDate" class="text-danger"></span>
 	</div>
 	<div class="form-group mt-4">
 		<label asp-for="ConferenceRoomId">Conference Room Id:</label>
-		<select asp-for="ConferenceRoomId" min="1" class="form-control">
+		<select asp-for="ConferenceRoomId" name="conferenceRoomId" min="1" class="form-control">
 			@foreach(var item in conferenceRooms)
 			{
 				<option value="@item.Id">@item.Name</option>
@@ -37,12 +37,12 @@
 	</div>
 	<div class="form-group mt-4">
 		<label asp-for="Purpose">Purpose:</label>
-		<input type="text" asp-for="Purpose" class="form-control" />
+		<input type="text" asp-for="Purpose" name="purpose" class="form-control" />
 		<span asp-validation-for="Purpose" class="text-danger"></span>
 	</div>
 	<div class="form-group mt-4">
 		<label asp-for="Participants">Participants:</label>
-		<input type="number" asp-for="Participants" min="1" class="form-control" />
+		<input type="number" asp-for="Participants" name="participants" min="1" class="form-control" />
 		<span asp-validation-for="Participants" class="text-danger"></span>
 	</div>
 

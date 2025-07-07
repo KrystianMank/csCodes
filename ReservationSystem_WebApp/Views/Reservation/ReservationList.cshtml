@@ -34,8 +34,12 @@
                     <td>@item.Purpose</td>
                     <td>@item.Participants</td>
                     <td><a asp-controller="Reservation" asp-action="AddEditReservation" asp-route-id="@item.Id" class="btn btn-success">Edit</a></td>
-                    <td><a asp-controller="Reservation" asp-action="DeleteReservation" asp-route-id="@item.Id" class="btn btn-danger">Delete</a></td>
-
+                    <td>
+                        <form method="post" asp-controller="Reservation" asp-action="DeleteReservation">
+                            <input type="hidden" name="id" value="@item.Id" />
+                            <button type="submit" class="btn btn-danger">Delete</button>
+                        </form>
+                    </td>
                 </tr>
             }
         </tbody>

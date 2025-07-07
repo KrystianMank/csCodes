@@ -98,15 +98,12 @@ namespace ReservationSystem_WebApp.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteReservation(int id)
         {
-            if (ModelState.IsValid)
-            {
-                var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-                var (success, errorMessage) = _service.DeleteReservation(id, userId);
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var (success, errorMessage) = _service.DeleteReservation(id, userId);
 
-                if (!success)
-                {
-                    TempData["ErrorMessage"] = errorMessage;
-                }
+            if (!success)
+            {
+                TempData["ErrorMessage"] = errorMessage;
             }
             
             return RedirectToAction("ReservationList");

@@ -7,17 +7,17 @@
 	<div asp-validation-summary="All"></div>
 	<div class="form-group mt-4">
 		<label asp-for="Email">Email:</label>
-		<input type="email" asp-for="Email" class="form-control"/>
+		<input type="email" asp-for="Email" name="email" class="form-control"/>
 		<span asp-validation-for="Email" class="text-danger"></span>
 	</div>
 	<div class="form-group mt-4">
 		<label asp-for="Password">Password:</label>
-		<input type="password" asp-for="Password" class="form-control"/>
+		<input type="password" asp-for="Password" name="password" class="form-control"/>
 		<span asp-validation-for="Email" class="text-danger"></span>
 	</div>
 	<div class="form-group mt-4">
 		<label asp-for="RemeberMe">
-			<input type="checkbox" asp-for="RemeberMe" class="form-check-input"/>
+			<input type="checkbox" asp-for="RemeberMe" name="remeberMe" class="form-check-input"/>
 			@Html.DisplayNameFor(m => m.RemeberMe);
 		</label>
 	</div>
