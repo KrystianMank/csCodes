@@ -7,6 +7,7 @@ namespace ReservationSystem_WebApp.Services
     {
         (Reservation reservation, string ErrorMessage) GetReservation(int reservationId, string userId);
         List<Reservation> GetUserReservations(string userId);
+        List<Reservation> GetConferenceRoomReservations(int roomId);
         (bool Success, string ErrorMessage) AddReservation(ReservationViewModel viewModel,  string userId);
         (bool Success, string ErrorMessage) ModifyReservation(ReservationViewModel viewModel, string userId);
         (bool Success, string ErrorMessage) DeleteReservation(int reservationId, string userId);

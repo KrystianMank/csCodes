@@ -180,5 +180,10 @@ namespace ReservationSystem_WebApp.Services
             
             return (true, null);
         }
+
+        public List<Reservation> GetConferenceRoomReservations(int roomId)
+        {
+            return _repos.GetAll().Where(r => r.ConferenceRoomId == roomId).ToList();
+        }
     }
 }

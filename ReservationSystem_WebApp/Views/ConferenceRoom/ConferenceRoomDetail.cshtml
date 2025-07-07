@@ -1,6 +1,8 @@
 ﻿@model ConferenceRoom
 @{
 	ViewData["Title"] = Model.Name;
+	List<Reservation> roomReservations = new List<Reservation>();
+	roomReservations.AddRange(ViewBag.RoomReservations);
 }
 <div class="row">
 	<div class="col-md-3">
@@ -31,17 +33,13 @@
 		</tr>
 	</thead>
 	<tbody>
-		@if(@Model.Reservations != null)
-		{
-			@foreach (var reservation in Model.Reservations.ToList())
+			@foreach(var reservation in roomReservations)
 			{
 				<tr>
 					<td>@reservation.Id</td>
 					<td>@reservation.BeginDate</td>
 					<td>@reservation.EndDate</td>
-					<td>@reservation.User.UserName</td>
 				</tr>
 			}
-		}
-	</tbody>
+		</tbody>
 </table>

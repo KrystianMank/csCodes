@@ -9,12 +9,15 @@ namespace ReservationSystem_WebApp.Controllers
     {
         private readonly IConferenceRoomService _roomService;
         private readonly ILogger<ConferenceRoomController> _logger;
+        private readonly IReservationService _reservationService;
         public ConferenceRoomController
             (IConferenceRoomService conferenceRoomService, 
-            ILogger<ConferenceRoomController> logger)
+            ILogger<ConferenceRoomController> logger,
+            IReservationService reservationService)
         {
             _roomService = conferenceRoomService;
             _logger = logger;
+            _reservationService = reservationService;
         }
 
         public IActionResult ConferenceRoomsList()
@@ -24,14 +27,17 @@ namespace ReservationSystem_WebApp.Controllers
         }
         public IActionResult ConferenceRoomDetail(int roomId)
         {
+            var roomReservations = _reservationService.GetConferenceRoomReservations(roomId);
             var (room, errorMessage) = _roomService.GetConferenceRoom(roomId);
             if(room != null)
             {
+                ViewBag.RoomReservations = roomReservations;
                 return View(room);
             }
             else
             {
                 ModelState.AddModelError(string.Empty, errorMessage);
+                _logger.LogError(errorMessage);
                 return RedirectToAction("ConferenceRoomsList", "ConferenceRoom");
             }
             
